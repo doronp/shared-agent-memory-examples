@@ -50,6 +50,12 @@ Where these come from: `check_aggregates` (items 1 and 2) and `check_gold_reuse`
 
 The honest reading: sharing mostly helps new tenants, while they have little history of their own. Most repeat work is a tenant repeating itself: of the 18.05% the pool could cover, 14.80 points are already in the tenant's own history. The patch-level numbers point the same way: own history alone already reaches a file the fix must change in most tasks (68.6%).
 
+## What we test, and the planned test
+
+[HYPOTHESES.md](HYPOTHESES.md) maps every question behind this work as a null hypothesis. For each one it gives what we test, why it matters, the pass rule, the current status and the evidence, and a diagram shows how each result shaped the next test. The headline numbers above are rows O1 to O3 of that map; its "teams" are the tenants used here. The map also covers offline checks of stop rules and of RTK output compression, and the published evidence on memory cost.
+
+[TEST-PLAN.md](TEST-PLAN.md) is the plan for the first live test (E0): Claude Code driving GLM-5.3-Flash, with RTK, on 123 SWE-bench Pro tasks. Does a team's own memory, or one pooled across 3 teams, cut agent cost while success stays the same? It is a pre-registration draft. It will be frozen with a git tag before the first paid run, and any later change goes in its Deviations table. Statuses in the map are updated as results come in.
+
 ## Data and credits
 
 - **Agent runs:** [nebius/SWE-rebench-openhands-trajectories](https://huggingface.co/datasets/nebius/SWE-rebench-openhands-trajectories), revision `35455389ab51bf5e2306bfd436ef72d0f98bf882`, CC BY 4.0. Trofimova et al., "OpenHands Trajectories with Qwen3-Coder-480B-A35B-Instruct", Nebius blog, 2025.
