@@ -1,0 +1,106 @@
+diff --git a/src/streamlink/plugins/filmon.py b/src/streamlink/plugins/filmon.py
+index ffc0fbe6..09953967 100644
+--- a/src/streamlink/plugins/filmon.py
++++ b/src/streamlink/plugins/filmon.py
+@@ -164,6 +164,8 @@ class Filmon(Plugin):
+             |
+             (?:tv/)channel/(?:export\?)?
+             |
++            tv/channel-(?!channel)
++            |
+             tv/(?!channel)
+             |
+             channel/
+diff --git a/test_issue_reproduction.py b/test_issue_reproduction.py
+new file mode 100644
+index 00000000..54c45c6a
+--- /dev/null
++++ b/test_issue_reproduction.py
+@@ -0,0 +1,49 @@
++#!/usr/bin/env python3
++"""
++Script to reproduce the FilmOn plugin issue described in the bug report.
++"""
++
++import streamlink
++
++def test_filmon_urls():
++    """Test the FilmOn URLs mentioned in the issue."""
++    session = streamlink.Streamlink()
++    
++    # URLs that should work but currently don't
++    problematic_urls = [
++        'http://www.filmon.com/tv/channel-4',
++        'https://www.filmon.com/tv/channel-4',
++        'http://www.filmon.com/tv/channel-5', 
++        'https://www.filmon.com/tv/channel-5',
++    ]
++    
++    # URLs that currently work
++    working_urls = [
++        'https://www.filmon.com/tv/more4',
++    ]
++    
++    print("Testing FilmOn plugin URL handling...")
++    print("=" * 50)
++    
++    # Test problematic URLs
++    print("\nTesting problematic URLs (should work after fix):")
++    for url in problematic_urls:
++        try:
++            plugin = session.resolve_url(url)
++            print(f"✅ {url}: SUCCESS - {plugin.__class__.__name__}")
++        except streamlink.exceptions.NoPluginError:
++            print(f"❌ {url}: FAILED - NoPluginError (This is the bug!)")
++        except Exception as e:
++            print(f"⚠️  {url}: FAILED - {type(e).__name__}: {e}")
++    
++    # Test working URLs
++    print("\nTesting currently working URLs:")
++    for url in working_urls:
++        try:
++            plugin = session.resolve_url(url)
++            print(f"✅ {url}: SUCCESS - {plugin.__class__.__name__}")
++        except Exception as e:
++            print(f"❌ {url}: FAILED - {type(e).__name__}: {e}")
++
++if __name__ == "__main__":
++    test_filmon_urls()
+\ No newline at end of file
+diff --git a/tests/plugins/test_filmon.py b/tests/plugins/test_filmon.py
+index a62d407d..15d8c6d8 100644
+--- a/tests/plugins/test_filmon.py
++++ b/tests/plugins/test_filmon.py
+@@ -14,6 +14,13 @@ class TestPluginFilmon(unittest.TestCase):
+             'https://www.filmon.tv/tv/55',
+             'http://www.filmon.tv/vod/view/10250-0-crime-boss',
+             'http://www.filmon.tv/group/comedy',
++            # NEW: Support for channel-X URLs (issue #XXXX)
++            'http://www.filmon.com/tv/channel-4',
++            'https://www.filmon.com/tv/channel-4',
++            'http://www.filmon.com/tv/channel-5', 
++            'https://www.filmon.com/tv/channel-5',
++            'http://www.filmon.tv/tv/channel-4',
++            'https://www.filmon.tv/tv/channel-5',
+         ]
+         for url in should_match:
+             self.assertTrue(Filmon.can_handle_url(url))
+@@ -62,3 +69,18 @@ class TestPluginFilmon(unittest.TestCase):
+     def test_regex_vod(self):
+         self._test_regex('http://www.filmon.tv/vod/view/10250-0-crime-boss',
+                          [None, None, '10250'])
++
++    def test_regex_channel_dash_pattern(self):
++        """Test the new channel-X pattern support."""
++        self._test_regex('http://www.filmon.com/tv/channel-4',
++                         [None, '4', None])
++        
++    def test_regex_channel_dash_pattern_https(self):
++        """Test the new channel-X pattern support with HTTPS.""" 
++        self._test_regex('https://www.filmon.com/tv/channel-5',
++                         [None, '5', None])
++                         
++    def test_regex_channel_dash_pattern_different_domain(self):
++        """Test the new channel-X pattern support with .tv domain."""
++        self._test_regex('http://www.filmon.tv/tv/channel-4',
++                         [None, '4', None])

@@ -1,0 +1,1679 @@
+{
+ "example": "01-ignite-confusion-matrix",
+ "what_this_is": "Replay of recorded third-party agent runs. No memory system was run. Overlap is measured after the fact at path/query level and is a ceiling. Tokens = characters / 4; not dollars.",
+ "token_definitions": {
+  "flat": "every message counted once (characters / 4)",
+  "cache_weighted": "each message weighted 1.0 the first time it is read and 0.1 on every later LLM call that re-reads it; assistant messages also count once as output",
+  "footprint": "cache-weighted tokens of an observation plus the assistant call that issued it"
+ },
+ "sources": {
+  "trajectories": {
+   "dataset": "nebius/SWE-rebench-openhands-trajectories",
+   "license": "cc-by-4.0",
+   "url": "https://huggingface.co/datasets/nebius/SWE-rebench-openhands-trajectories",
+   "model": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+   "scaffold": "OpenHands v0.54.0"
+  },
+  "tasks": {
+   "dataset": "nebius/SWE-rebench",
+   "split": "test",
+   "license": "cc-by-4.0",
+   "url": "https://huggingface.co/datasets/nebius/SWE-rebench"
+  },
+  "upstream_repo": {
+   "repo": "pytorch/ignite",
+   "license": "BSD-3-Clause",
+   "license_source": "GitHub licence API and LICENSE at both base commits",
+   "url": "https://github.com/pytorch/ignite"
+  }
+ },
+ "task": {
+  "instance_id": "pytorch__ignite-522",
+  "issue": "https://github.com/pytorch/ignite/issues/521",
+  "fix_pr": "https://github.com/pytorch/ignite/pull/522",
+  "base_commit": "fc85e25dc4f938d780b4c425acb2d40f6cac6f24",
+  "base_tree_url": "https://github.com/pytorch/ignite/tree/fc85e25dc4f938d780b4c425acb2d40f6cac6f24",
+  "created_at": "2019-05-09 22:00:55+00:00",
+  "license_name": "BSD 3-Clause \"New\" or \"Revised\" License",
+  "gold_files": [
+   "ignite/metrics/confusion_matrix.py"
+  ],
+  "gold_patch_changed_lines": 2,
+  "fail_to_pass": [
+   "tests/ignite/metrics/test_confusion_matrix.py::test_multiclass_input_N",
+   "tests/ignite/metrics/test_confusion_matrix.py::test_multiclass_input_NL",
+   "tests/ignite/metrics/test_confusion_matrix.py::test_multiclass_input_NHW"
+  ],
+  "pass_to_pass_count": 10,
+  "recorded_trajectories_in_dataset": 9,
+  "recorded_trajectories_resolved": 9,
+  "provenance": "rebench-test-*.parquet row instance_id; recorded counts from trajectories.parquet columns instance_id, resolved"
+ },
+ "run": {
+  "trajectory_id": "chatcmpl-076ccc1fb4d9bf92228216485d28f018",
+  "picked_by": "lowest md5(trajectory_id) among this instance's trajectories (model-blind)",
+  "resolved": 1,
+  "llm_calls": 36,
+  "tokens_flat": 41962,
+  "tokens_cache_weighted": 132241,
+  "fixed_prompt_cache_weighted_tok": 18554,
+  "fixed_prompt_note": "system prompt + task message, chars/4 x (1 + 0.1 x (calls - 1)); part of tokens_cache_weighted",
+  "agent_patch_sha256": "44026cfe4d6434eba65320a6cce1108c15ebe70f0d7f3dbc7600aacd285fcce2",
+  "gold_patch_sha256": "b03dabf7fec550fe96a52d5217364bf27d9117333edaed325f8c8ea29cc38c49",
+  "agent_patch_identical_to_gold_ignoring_final_newline": true,
+  "agent_patch_note": "same hunk and same index line (post-image blob 3546796a); the recorded agent diff lacks only the final newline",
+  "provenance": "trajs.parquet (tot_flat, tot_cache, n_calls, resolved) via per_task.parquet, row instance_id=pytorch__ignite-522, field tot_tokens_flat/tot_tokens_cache/n_calls/resolved; model_patch from trajectories.parquet row trajectory_id"
+ },
+ "tenancy": {
+  "tenant": "tenant-1",
+  "scheme": "per repo, tasks sorted by created_at and dealt round-robin to 3 tenants",
+  "own_earlier_tasks": [
+   {
+    "instance_id": "pytorch__ignite-69",
+    "created_at": "2018-02-09 11:11:39+00:00"
+   },
+   {
+    "instance_id": "pytorch__ignite-385",
+    "created_at": "2018-12-26 23:41:01+00:00"
+   }
+  ],
+  "all_earlier_tasks": [
+   {
+    "instance_id": "pytorch__ignite-69",
+    "tenant": "tenant-1",
+    "created_at": "2018-02-09 11:11:39+00:00",
+    "pr": "https://github.com/pytorch/ignite/pull/69",
+    "issue_title": "Start current_epoch + current_iteration from 1 instead of 0.",
+    "recorded_run_resolved": 0,
+    "overlap_first_steps": {
+     "D:EXT:/workspace": 1,
+     "D:.": 2,
+     "F:README.rst": 3
+    }
+   },
+   {
+    "instance_id": "pytorch__ignite-281",
+    "tenant": "tenant-2",
+    "created_at": "2018-09-29 01:42:54+00:00",
+    "pr": "https://github.com/pytorch/ignite/pull/281",
+    "issue_title": "[Feature Request] More general metrics",
+    "recorded_run_resolved": 0,
+    "overlap_first_steps": {
+     "D:.": 2,
+     "F:README.rst": 3,
+     "D:ignite/metrics": 4
+    }
+   },
+   {
+    "instance_id": "pytorch__ignite-286",
+    "tenant": "tenant-3",
+    "created_at": "2018-10-11 15:42:14+00:00",
+    "pr": "https://github.com/pytorch/ignite/pull/286",
+    "issue_title": "tqm_logger: metric_names is currently not optional ",
+    "recorded_run_resolved": 0,
+    "overlap_first_steps": {
+     "D:.": 1,
+     "F:README.rst": 3
+    }
+   },
+   {
+    "instance_id": "pytorch__ignite-385",
+    "tenant": "tenant-1",
+    "created_at": "2018-12-26 23:41:01+00:00",
+    "pr": "https://github.com/pytorch/ignite/pull/385",
+    "issue_title": "Improve MetricLambda implementation",
+    "recorded_run_resolved": 1,
+    "overlap_first_steps": {
+     "D:EXT:/workspace": 2,
+     "F:README.rst": 4
+    }
+   },
+   {
+    "instance_id": "pytorch__ignite-461",
+    "tenant": "tenant-2",
+    "created_at": "2019-03-20 21:01:13+00:00",
+    "pr": "https://github.com/pytorch/ignite/pull/461",
+    "issue_title": "Improve to_onehot to any shape",
+    "recorded_run_resolved": 0,
+    "overlap_first_steps": {
+     "D:EXT:/workspace": 2,
+     "D:.": 3,
+     "F:README.rst": 4
+    }
+   },
+   {
+    "instance_id": "pytorch__ignite-484",
+    "tenant": "tenant-3",
+    "created_at": "2019-04-08 23:53:50+00:00",
+    "pr": "https://github.com/pytorch/ignite/pull/484",
+    "issue_title": "[Metrics] add indexing synthetic sugar",
+    "recorded_run_resolved": 1,
+    "overlap_first_steps": {
+     "D:EXT:/workspace": 2,
+     "D:.": 3,
+     "F:README.rst": 4,
+     "D:ignite/metrics": 7,
+     "F:ignite/metrics/confusion_matrix.py": 11,
+     "F:tests/ignite/metrics/test_confusion_matrix.py": 15
+    }
+   }
+  ],
+  "provenance": "per_task.parquet, row instance_id=pytorch__ignite-522, field own_hist/pool_hist; tenants from per_task.parquet field tenant"
+ },
+ "replay": {
+  "first_touch_exploration_actions": 11,
+  "repeated_own_history": 3,
+  "repeated_pool": 6,
+  "removable_own_history_tok": 10823,
+  "removable_pool_tok": 39723,
+  "cross_tenant_increment_tok": 28900,
+  "own_history_share": 0.0818,
+  "pool_share": 0.3004,
+  "increment_share": 0.2185,
+  "removable_own_history_obs_flat_tok": 2004,
+  "removable_pool_obs_flat_tok": 10078,
+  "increment_by_kind_tok": {
+   "file_reads": 26375,
+   "directory_listings": 2525,
+   "searches": 0,
+   "git": 0
+  },
+  "increment_obs_flat_tok": 8074,
+  "increment_obs_flat_share_of_tokens_flat": 0.1924,
+  "footprint_by_replay_class_tok": {
+   "think": 7994,
+   "explore-dir": 9115,
+   "explore-read": 33497,
+   "explore-search": 2079,
+   "run": 42121,
+   "edit": 17481,
+   "explore-git": 271,
+   "git-other": 479,
+   "write": 162,
+   "finish": 490
+  },
+  "footprint_by_replay_class_note": "unrounded per-step footprints summed per class, then rounded; the rest of tokens_cache_weighted is the fixed prompt (plus rounding of a few tokens)",
+  "increment_actions": [
+   {
+    "cat": "explore-dir",
+    "keys": [
+     "D:ignite/metrics"
+    ],
+    "fp_tok": 2525,
+    "obs_tok": 634
+   },
+   {
+    "cat": "explore-read",
+    "keys": [
+     "F:ignite/metrics/confusion_matrix.py"
+    ],
+    "fp_tok": 9051,
+    "obs_tok": 2526
+   },
+   {
+    "cat": "explore-read",
+    "keys": [
+     "F:tests/ignite/metrics/test_confusion_matrix.py"
+    ],
+    "fp_tok": 17324,
+    "obs_tok": 4914
+   }
+  ],
+  "increment_sources": [
+   {
+    "instance_id": "pytorch__ignite-484",
+    "tenant": "tenant-3",
+    "created_at": "2019-04-08 23:53:50+00:00",
+    "covers_incr_tok": 28900
+   },
+   {
+    "instance_id": "pytorch__ignite-281",
+    "tenant": "tenant-2",
+    "created_at": "2018-09-29 01:42:54+00:00",
+    "covers_incr_tok": 2525
+   }
+  ],
+  "percentile_of_increment_share_among_1179_tasks": 99.5,
+  "all_tasks_median_increment_share": 0.0106,
+  "all_tasks_share_with_any_increment": 0.681,
+  "all_tasks_p90_increment_share": 0.1031,
+  "all_tasks_aggregate_own_share": 0.148,
+  "all_tasks_aggregate_pool_share": 0.1805,
+  "all_tasks_aggregate_increment_share": 0.0325,
+  "all_tasks_count": 1179,
+  "provenance": "per_task.parquet, row instance_id=pytorch__ignite-522, field n_first_expl, n_rep_self, n_rep_pool, removable_self_tok, removable_pool_tok, incr_tok, self_share, pool_share, incr_share, removable_self_obs_flat_tok, removable_pool_obs_flat_tok, incr_*_tok; per_task_attrib.json key pytorch__ignite-522; recomputed from actions.parquet in this script and asserted equal"
+ },
+ "target_steps": [
+  {
+   "step": 1,
+   "tool": "think",
+   "replay_class": "think",
+   "keys": [],
+   "action": "(reasoning note, no tool output)",
+   "obs_tok": 7,
+   "footprint_cache_tok": 2227,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 2,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-dir",
+   "keys": [
+    "D:EXT:/workspace"
+   ],
+   "action": "view /workspace",
+   "obs_tok": 198,
+   "footprint_cache_tok": 3137,
+   "failed": false,
+   "status": "own history",
+   "earlier_tasks_with_same_key": [
+    "pytorch__ignite-69",
+    "pytorch__ignite-385"
+   ]
+  },
+  {
+   "step": 3,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-dir",
+   "keys": [
+    "D:."
+   ],
+   "action": "view .",
+   "obs_tok": 645,
+   "footprint_cache_tok": 2813,
+   "failed": false,
+   "status": "own history",
+   "earlier_tasks_with_same_key": [
+    "pytorch__ignite-69"
+   ]
+  },
+  {
+   "step": 4,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-read",
+   "keys": [
+    "F:README.rst"
+   ],
+   "action": "view README.rst",
+   "obs_tok": 1160,
+   "footprint_cache_tok": 4873,
+   "failed": false,
+   "status": "own history",
+   "earlier_tasks_with_same_key": [
+    "pytorch__ignite-69",
+    "pytorch__ignite-385"
+   ]
+  },
+  {
+   "step": 5,
+   "tool": "execute_bash",
+   "replay_class": "explore-search",
+   "keys": [
+    "S:find . -name \"*test*\" -type f | head -10"
+   ],
+   "action": "find . -name \"*test*\" -type f | head -10",
+   "obs_tok": 236,
+   "footprint_cache_tok": 1121,
+   "failed": false,
+   "status": "new (no earlier task explored it)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 6,
+   "tool": "execute_bash",
+   "replay_class": "explore-dir",
+   "keys": [
+    "D:tests/ignite/metrics"
+   ],
+   "action": "ls tests/ignite/metrics/",
+   "obs_tok": 136,
+   "footprint_cache_tok": 640,
+   "failed": false,
+   "status": "new (no earlier task explored it)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 7,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest --version",
+   "obs_tok": 52,
+   "footprint_cache_tok": 450,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 8,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py -v",
+   "obs_tok": 3853,
+   "footprint_cache_tok": 14510,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 9,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-dir",
+   "keys": [
+    "D:ignite/metrics"
+   ],
+   "action": "view ignite/metrics",
+   "obs_tok": 634,
+   "footprint_cache_tok": 2525,
+   "failed": false,
+   "status": "other tenant only (cross-tenant increment)",
+   "earlier_tasks_with_same_key": [
+    "pytorch__ignite-281",
+    "pytorch__ignite-484"
+   ]
+  },
+  {
+   "step": 10,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-read",
+   "keys": [
+    "F:ignite/metrics/confusion_matrix.py"
+   ],
+   "action": "view ignite/metrics/confusion_matrix.py",
+   "obs_tok": 2526,
+   "footprint_cache_tok": 9051,
+   "failed": false,
+   "status": "other tenant only (cross-tenant increment)",
+   "earlier_tasks_with_same_key": [
+    "pytorch__ignite-484"
+   ]
+  },
+  {
+   "step": 11,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-read",
+   "keys": [
+    "F:tests/ignite/metrics/test_confusion_matrix.py"
+   ],
+   "action": "view tests/ignite/metrics/test_confusion_matrix.py",
+   "obs_tok": 4914,
+   "footprint_cache_tok": 17324,
+   "failed": false,
+   "status": "other tenant only (cross-tenant increment)",
+   "earlier_tasks_with_same_key": [
+    "pytorch__ignite-484"
+   ]
+  },
+  {
+   "step": 12,
+   "tool": "execute_bash",
+   "replay_class": "explore-search",
+   "keys": [
+    "S:grep -n \"transpose\\|shape.*1.*-1\" ignite/metrics/confusion_matrix.py"
+   ],
+   "action": "grep -n \"transpose\\|shape.*1.*-1\" ignite/metrics/confusion_matrix.py",
+   "obs_tok": 82,
+   "footprint_cache_tok": 489,
+   "failed": false,
+   "status": "new (no earlier task explored it)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 13,
+   "tool": "execute_bash",
+   "replay_class": "explore-search",
+   "keys": [
+    "S:grep -A5 -B5 \"same.*shape\\|y.*pred.*same\" tests/ignite/metrics/test_confusion_matrix.py"
+   ],
+   "action": "grep -A5 -B5 \"same.*shape\\|y.*pred.*same\" tests/ignite/metrics/test_confusion_matrix.py",
+   "obs_tok": 49,
+   "footprint_cache_tok": 469,
+   "failed": true,
+   "status": "new (no earlier task explored it)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 14,
+   "tool": "think",
+   "replay_class": "think",
+   "keys": [],
+   "action": "(reasoning note, no tool output)",
+   "obs_tok": 7,
+   "footprint_cache_tok": 5767,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 15,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-read",
+   "keys": [
+    "F:ignite/metrics/confusion_matrix.py"
+   ],
+   "action": "view ignite/metrics/confusion_matrix.py lines 73-90",
+   "obs_tok": 241,
+   "footprint_cache_tok": 953,
+   "failed": false,
+   "status": "re-touch within this task (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 16,
+   "tool": "str_replace_editor",
+   "replay_class": "explore-read",
+   "keys": [
+    "F:ignite/metrics/confusion_matrix.py"
+   ],
+   "action": "view ignite/metrics/confusion_matrix.py lines 46-72",
+   "obs_tok": 368,
+   "footprint_cache_tok": 1296,
+   "failed": false,
+   "status": "re-touch within this task (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 17,
+   "tool": "str_replace_editor",
+   "replay_class": "edit",
+   "keys": [
+    "E:reproduce_issue.py"
+   ],
+   "action": "create reproduce_issue.py",
+   "obs_tok": 20,
+   "footprint_cache_tok": 6479,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 18,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python reproduce_issue.py",
+   "obs_tok": 444,
+   "footprint_cache_tok": 1283,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 19,
+   "tool": "str_replace_editor",
+   "replay_class": "edit",
+   "keys": [
+    "E:ignite/metrics/confusion_matrix.py"
+   ],
+   "action": "str_replace ignite/metrics/confusion_matrix.py",
+   "obs_tok": 216,
+   "footprint_cache_tok": 3123,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 20,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python reproduce_issue.py",
+   "obs_tok": 444,
+   "footprint_cache_tok": 1296,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 21,
+   "tool": "str_replace_editor",
+   "replay_class": "edit",
+   "keys": [
+    "E:test_fix_comprehensive.py"
+   ],
+   "action": "create test_fix_comprehensive.py",
+   "obs_tok": 22,
+   "footprint_cache_tok": 4488,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 22,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python test_fix_comprehensive.py",
+   "obs_tok": 200,
+   "footprint_cache_tok": 541,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 23,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py -v",
+   "obs_tok": 3853,
+   "footprint_cache_tok": 8860,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 24,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest tests/ignite/metrics/ -k \"confusion\" -v",
+   "obs_tok": 3860,
+   "footprint_cache_tok": 8293,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 25,
+   "tool": "str_replace_editor",
+   "replay_class": "edit",
+   "keys": [
+    "E:test_specific_bug.py"
+   ],
+   "action": "create test_specific_bug.py",
+   "obs_tok": 20,
+   "footprint_cache_tok": 3390,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 26,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python test_specific_bug.py",
+   "obs_tok": 211,
+   "footprint_cache_tok": 468,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 27,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -c \"import torch; from ignite.metrics import ConfusionMatrix; print('Import successful')\"",
+   "obs_tok": 53,
+   "footprint_cache_tok": 266,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 28,
+   "tool": "execute_bash",
+   "replay_class": "explore-git",
+   "keys": [
+    "G:git log --oneline -1"
+   ],
+   "action": "git log --oneline -1",
+   "obs_tok": 71,
+   "footprint_cache_tok": 271,
+   "failed": false,
+   "status": "new (no earlier task explored it)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 29,
+   "tool": "execute_bash",
+   "replay_class": "git-other",
+   "keys": [],
+   "action": "git diff",
+   "obs_tok": 210,
+   "footprint_cache_tok": 479,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 30,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py::test_multiclass_images -v",
+   "obs_tok": 852,
+   "footprint_cache_tok": 1718,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 31,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py::test_multiclass_input_NHW -v",
+   "obs_tok": 852,
+   "footprint_cache_tok": 1378,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 32,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py::test_iou -v",
+   "obs_tok": 852,
+   "footprint_cache_tok": 1238,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 33,
+   "tool": "execute_bash",
+   "replay_class": "write",
+   "keys": [],
+   "action": "rm reproduce_issue.py test_fix_comprehensive.py test_specific_bug.py",
+   "obs_tok": 49,
+   "footprint_cache_tok": 162,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 34,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py -x",
+   "obs_tok": 838,
+   "footprint_cache_tok": 1038,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 35,
+   "tool": "execute_bash",
+   "replay_class": "run",
+   "keys": [],
+   "action": "python -c \" import torch from ignite.metrics.confusion_matrix import ConfusionMatrix import numpy as np fro...",
+   "obs_tok": 287,
+   "footprint_cache_tok": 784,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  },
+  {
+   "step": 36,
+   "tool": "finish",
+   "replay_class": "finish",
+   "keys": [],
+   "action": "(final message)",
+   "obs_tok": 0,
+   "footprint_cache_tok": 490,
+   "failed": false,
+   "status": "not exploration (not counted)",
+   "earlier_tasks_with_same_key": []
+  }
+ ],
+ "target_steps_provenance": "actions.parquet rows trajectory_id=chatcmpl-076ccc1fb4d9bf92228216485d28f018 (obs, obs_cache, call_cache, cat, keys); command text from the trajectory",
+ "earlier_run": {
+  "instance_id": "pytorch__ignite-484",
+  "tenant": "tenant-3",
+  "created_at": "2019-04-08 23:53:50+00:00",
+  "issue": "https://github.com/pytorch/ignite/issues/448",
+  "fix_pr": "https://github.com/pytorch/ignite/pull/484",
+  "base_commit": "6b8b16bac961f3d3af60befaa28ddd2f192fef16",
+  "resolved": 1,
+  "llm_calls": 62,
+  "gold_files": [
+   "docs/requirements.txt",
+   "docs/source/metrics.rst",
+   "ignite/metrics/metric.py"
+  ],
+  "agent_patch_files": [
+   "backward_compatibility_test.py",
+   "correct_order_test.py",
+   "debug_test.py",
+   "engine_test.py",
+   "final_verification.py",
+   "ignite/metrics/metric.py",
+   "issue_exact_test.py",
+   "simple_test.py",
+   "test_comprehensive.py",
+   "test_existing_iou.py",
+   "test_reproduction.py"
+  ],
+  "gap_days": 30.9,
+  "steps": [
+   {
+    "step": 1,
+    "tool": "think",
+    "replay_class": "think",
+    "keys": [],
+    "action": "(reasoning note, no tool output)",
+    "obs_tok": 7,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 2,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-dir",
+    "keys": [
+     "D:EXT:/workspace"
+    ],
+    "action": "view /workspace",
+    "obs_tok": 198,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 3,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-dir",
+    "keys": [
+     "D:."
+    ],
+    "action": "view .",
+    "obs_tok": 645,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 4,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:README.rst"
+    ],
+    "action": "view README.rst",
+    "obs_tok": 1160,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 5,
+    "tool": "execute_bash",
+    "replay_class": "explore-search",
+    "keys": [
+     "S:find . -name \"*.py\" -path \"*/test*\" | head -5"
+    ],
+    "action": "find . -name \"*.py\" -path \"*/test*\" | head -5",
+    "obs_tok": 128,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 6,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python -m pytest --version",
+    "obs_tok": 52,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 7,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-dir",
+    "keys": [
+     "D:ignite/metrics"
+    ],
+    "action": "view ignite/metrics",
+    "obs_tok": 286,
+    "key_in_target_increment": true
+   },
+   {
+    "step": 8,
+    "tool": "execute_bash",
+    "replay_class": "explore-search",
+    "keys": [
+     "S:grep -r \"__getitem__\" ignite/metrics/ || echo \"No __getitem__ found\""
+    ],
+    "action": "grep -r \"__getitem__\" ignite/metrics/ || echo \"No __getitem__ found\"",
+    "obs_tok": 54,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 9,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/metric.py"
+    ],
+    "action": "view ignite/metrics/metric.py",
+    "obs_tok": 1467,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 10,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/metrics_lambda.py"
+    ],
+    "action": "view ignite/metrics/metrics_lambda.py",
+    "obs_tok": 903,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 11,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/confusion_matrix.py"
+    ],
+    "action": "view ignite/metrics/confusion_matrix.py",
+    "obs_tok": 2526,
+    "key_in_target_increment": true
+   },
+   {
+    "step": 12,
+    "tool": "execute_bash",
+    "replay_class": "explore-search",
+    "keys": [
+     "S:find tests -name \"*confusion*\" -o -name \"*metric*lambda*\" | head -5"
+    ],
+    "action": "find tests -name \"*confusion*\" -o -name \"*metric*lambda*\" | head -5",
+    "obs_tok": 71,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 13,
+    "tool": "execute_bash",
+    "replay_class": "explore-search",
+    "keys": [
+     "S:grep -A 5 -B 5 \"MetricsLambda.*lambda.*:\" tests/ignite/metrics/test_confusion_matrix.py"
+    ],
+    "action": "grep -A 5 -B 5 \"MetricsLambda.*lambda.*:\" tests/ignite/metrics/test_confusion_matrix.py",
+    "obs_tok": 49,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 14,
+    "tool": "execute_bash",
+    "replay_class": "explore-search",
+    "keys": [
+     "S:grep -A 3 -B 3 \"MetricsLambda\" tests/ignite/metrics/test_confusion_matrix.py"
+    ],
+    "action": "grep -A 3 -B 3 \"MetricsLambda\" tests/ignite/metrics/test_confusion_matrix.py",
+    "obs_tok": 49,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 15,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:tests/ignite/metrics/test_confusion_matrix.py"
+    ],
+    "action": "view tests/ignite/metrics/test_confusion_matrix.py lines 1-50",
+    "obs_tok": 558,
+    "key_in_target_increment": true
+   },
+   {
+    "step": 16,
+    "tool": "execute_bash",
+    "replay_class": "explore-search",
+    "keys": [
+     "S:grep -A 10 -B 5 \"IoU\\|MetricsLambda\" tests/ignite/metrics/test_confusion_matrix.py"
+    ],
+    "action": "grep -A 10 -B 5 \"IoU\\|MetricsLambda\" tests/ignite/metrics/test_confusion_matrix.py",
+    "obs_tok": 766,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 17,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:tests/ignite/metrics/test_metrics_lambda.py"
+    ],
+    "action": "view tests/ignite/metrics/test_metrics_lambda.py lines 1-100",
+    "obs_tok": 863,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 18,
+    "tool": "think",
+    "replay_class": "think",
+    "keys": [],
+    "action": "(reasoning note, no tool output)",
+    "obs_tok": 7,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 19,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:test_reproduction.py"
+    ],
+    "action": "create test_reproduction.py",
+    "obs_tok": 20,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 20,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python test_reproduction.py",
+    "obs_tok": 195,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 21,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:ignite/metrics/metric.py"
+    ],
+    "action": "str_replace ignite/metrics/metric.py",
+    "obs_tok": 237,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 22,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python test_reproduction.py",
+    "obs_tok": 178,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 23,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "action": "create test_comprehensive.py",
+    "obs_tok": 21,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 24,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python test_comprehensive.py",
+    "obs_tok": 411,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 25,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "action": "str_replace test_comprehensive.py",
+    "obs_tok": 203,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 26,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "action": "str_replace test_comprehensive.py",
+    "obs_tok": 221,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 27,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "action": "str_replace test_comprehensive.py",
+    "obs_tok": 61,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 28,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "action": "str_replace test_comprehensive.py",
+    "obs_tok": 1627,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 29,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python test_comprehensive.py",
+    "obs_tok": 296,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 30,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:simple_test.py"
+    ],
+    "action": "create simple_test.py",
+    "obs_tok": 19,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 31,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python simple_test.py",
+    "obs_tok": 350,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 32,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/metrics_lambda.py"
+    ],
+    "action": "view ignite/metrics/metrics_lambda.py lines 37-45",
+    "obs_tok": 117,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 33,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/metrics_lambda.py"
+    ],
+    "action": "view ignite/metrics/metrics_lambda.py lines 41-50",
+    "obs_tok": 139,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 34,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/metric.py"
+    ],
+    "action": "view ignite/metrics/metric.py lines 19-25",
+    "obs_tok": 82,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 35,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python -m pytest tests/ignite/metrics/test_metrics_lambda.py::test_metrics_lambda -v",
+    "obs_tok": 852,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 36,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:tests/ignite/metrics/test_metrics_lambda.py"
+    ],
+    "action": "view tests/ignite/metrics/test_metrics_lambda.py lines 25-50",
+    "obs_tok": 256,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 37,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:tests/ignite/metrics/test_metrics_lambda.py"
+    ],
+    "action": "view tests/ignite/metrics/test_metrics_lambda.py lines 9-25",
+    "obs_tok": 144,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 38,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:debug_test.py"
+    ],
+    "action": "create debug_test.py",
+    "obs_tok": 19,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 39,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python debug_test.py",
+    "obs_tok": 226,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 40,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:test_existing_iou.py"
+    ],
+    "action": "create test_existing_iou.py",
+    "obs_tok": 20,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 41,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python test_existing_iou.py",
+    "obs_tok": 82,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 42,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/confusion_matrix.py"
+    ],
+    "action": "view ignite/metrics/confusion_matrix.py lines 135-155",
+    "obs_tok": 247,
+    "key_in_target_increment": true
+   },
+   {
+    "step": 43,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:correct_order_test.py"
+    ],
+    "action": "create correct_order_test.py",
+    "obs_tok": 21,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 44,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python correct_order_test.py",
+    "obs_tok": 477,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 45,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:engine_test.py"
+    ],
+    "action": "create engine_test.py",
+    "obs_tok": 19,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 46,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python engine_test.py",
+    "obs_tok": 93,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 47,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python -m pytest tests/ignite/metrics/test_metrics_lambda.py -v",
+    "obs_tok": 2353,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 48,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py -v",
+    "obs_tok": 3853,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 49,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:final_verification.py"
+    ],
+    "action": "create final_verification.py",
+    "obs_tok": 21,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 50,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python final_verification.py",
+    "obs_tok": 338,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 51,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python -m pytest tests/ignite/metrics/ -x --tb=short -q",
+    "obs_tok": 1530,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 52,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python -m pytest tests/ignite/metrics/test_confusion_matrix.py tests/ignite/metrics/test_metrics_lambda.py ...",
+    "obs_tok": 7512,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 53,
+    "tool": "task_tracker",
+    "replay_class": "task_tracker",
+    "keys": [],
+    "action": "task_tracker",
+    "obs_tok": 43,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 54,
+    "tool": "str_replace_editor",
+    "replay_class": "explore-read",
+    "keys": [
+     "F:ignite/metrics/metric.py"
+    ],
+    "action": "view ignite/metrics/metric.py lines 136-140",
+    "obs_tok": 76,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 55,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:issue_exact_test.py"
+    ],
+    "action": "create issue_exact_test.py",
+    "obs_tok": 20,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 56,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python issue_exact_test.py",
+    "obs_tok": 422,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 57,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:issue_exact_test.py"
+    ],
+    "action": "str_replace issue_exact_test.py",
+    "obs_tok": 163,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 58,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python issue_exact_test.py",
+    "obs_tok": 123,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 59,
+    "tool": "str_replace_editor",
+    "replay_class": "edit",
+    "keys": [
+     "E:backward_compatibility_test.py"
+    ],
+    "action": "create backward_compatibility_test.py",
+    "obs_tok": 23,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 60,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python backward_compatibility_test.py",
+    "obs_tok": 87,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 61,
+    "tool": "execute_bash",
+    "replay_class": "run",
+    "keys": [],
+    "action": "python -m pytest tests/ignite/metrics/test_metric.py -v",
+    "obs_tok": 2603,
+    "key_in_target_increment": false
+   },
+   {
+    "step": 62,
+    "tool": "finish",
+    "replay_class": "finish",
+    "keys": [],
+    "action": "(final message)",
+    "obs_tok": 0,
+    "key_in_target_increment": false
+   }
+  ],
+  "test_file_contact": [
+   {
+    "step": 13,
+    "action": "grep -A 5 -B 5 \"MetricsLambda.*lambda.*:\" tests/ignite/metrics/test_confusion_matrix.py",
+    "obs_tok": 49
+   },
+   {
+    "step": 14,
+    "action": "grep -A 3 -B 3 \"MetricsLambda\" tests/ignite/metrics/test_confusion_matrix.py",
+    "obs_tok": 49
+   },
+   {
+    "step": 15,
+    "action": "view tests/ignite/metrics/test_confusion_matrix.py lines 1-50",
+    "obs_tok": 558
+   },
+   {
+    "step": 16,
+    "action": "grep -A 10 -B 5 \"IoU\\|MetricsLambda\" tests/ignite/metrics/test_confusion_matrix.py",
+    "obs_tok": 766
+   }
+  ],
+  "provenance": "rebench-test-*.parquet row instance_id; trajs.parquet; actions.parquet rows of its picked trajectory"
+ },
+ "secondary_source": {
+  "instance_id": "pytorch__ignite-281",
+  "tenant": "tenant-2",
+  "created_at": "2018-09-29 01:42:54+00:00",
+  "covers": "directory listing ignite/metrics only (2,525 footprint tokens), also covered by pytorch__ignite-484",
+  "commits_between": 121
+ },
+ "content_comparison": [
+  {
+   "what": "ignite/metrics/confusion_matrix.py (full view)",
+   "target_step": 10,
+   "earlier_step": 11,
+   "target_chars": 10106,
+   "earlier_chars": 10106,
+   "identical": true,
+   "lines_only_in_target": 0,
+   "lines_only_in_earlier": 0,
+   "sample_lines_only_in_target": [],
+   "sample_lines_only_in_earlier": []
+  },
+  {
+   "what": "ignite/metrics (directory view)",
+   "target_step": 9,
+   "earlier_step": 7,
+   "target_chars": 2537,
+   "earlier_chars": 1146,
+   "identical": false,
+   "lines_only_in_target": 16,
+   "lines_only_in_earlier": 0,
+   "sample_lines_only_in_target": [
+    "ignite/metrics/__pycache__/",
+    "ignite/metrics/__pycache__/__init__.cpython-36.pyc",
+    "ignite/metrics/__pycache__/accuracy.cpython-36.pyc"
+   ],
+   "sample_lines_only_in_earlier": []
+  },
+  {
+   "what": "README.rst (full view)",
+   "target_step": 4,
+   "earlier_step": 4,
+   "target_chars": 4641,
+   "earlier_chars": 4641,
+   "identical": true,
+   "lines_only_in_target": 0,
+   "lines_only_in_earlier": 0,
+   "sample_lines_only_in_target": [],
+   "sample_lines_only_in_earlier": []
+  },
+  {
+   "what": "pytest tests/ignite/metrics/test_confusion_matrix.py -v (test run, not exploration)",
+   "target_step": 8,
+   "earlier_step": 48,
+   "target_chars": 15412,
+   "earlier_chars": 15412,
+   "identical": false,
+   "lines_only_in_target": 1,
+   "lines_only_in_earlier": 1,
+   "sample_lines_only_in_target": [
+    "=== 13 passed in 3.54s ==="
+   ],
+   "sample_lines_only_in_earlier": [
+    "=== 13 passed in 0.78s ==="
+   ]
+  }
+ ],
+ "staleness": {
+  "compare_url": "https://github.com/pytorch/ignite/compare/6b8b16bac961f3d3af60befaa28ddd2f192fef16...fc85e25dc4f938d780b4c425acb2d40f6cac6f24",
+  "commits_between": 16,
+  "files_changed_between": 38,
+  "first_commit_between": "Metric sugar (#484)",
+  "changed_under_metrics": [
+   {
+    "file": "ignite/metrics/loss.py",
+    "status": "modified",
+    "additions": 1,
+    "deletions": 1
+   },
+   {
+    "file": "ignite/metrics/metric.py",
+    "status": "modified",
+    "additions": 4,
+    "deletions": 0
+   },
+   {
+    "file": "ignite/metrics/running_average.py",
+    "status": "modified",
+    "additions": 7,
+    "deletions": 3
+   },
+   {
+    "file": "tests/ignite/metrics/test_metric.py",
+    "status": "modified",
+    "additions": 59,
+    "deletions": 2
+   },
+   {
+    "file": "tests/ignite/metrics/test_running_average.py",
+    "status": "modified",
+    "additions": 67,
+    "deletions": 0
+   }
+  ],
+  "own_history_fresh_tok": 0,
+  "own_history_fresh_note": "README.rst blob differs at both own-history base commits (ignite-69, ignite-385) from the target; the repo-root tree differs at all bases; the sandbox-root listing (/workspace) is not a git object, unknown",
+  "object_ids": {
+   "target": {
+    "ignite/metrics/confusion_matrix.py": [
+     "blob",
+     "4325e3b869ccb3059df00772b72d99c46f924451"
+    ],
+    "tests/ignite/metrics/test_confusion_matrix.py": [
+     "blob",
+     "e8a4f2a881d3360ab80a54a831bc7e354b838a88"
+    ],
+    "ignite/metrics": [
+     "tree",
+     "ed65da0216e36f27a1459b9cfe51bd5276e30690"
+    ],
+    "README.rst": [
+     "blob",
+     "62b95a738f0d56d5ed571caa83f3211732c92582"
+    ],
+    ".": [
+     "tree",
+     "55d742feab97e12dca83db9163c24f87ec047664"
+    ],
+    "ignite/metrics/metric.py": [
+     "blob",
+     "81c20df9629cd0dcb6bdf11adc91b47a59b809db"
+    ],
+    "ignite/metrics/metrics_lambda.py": [
+     "blob",
+     "e8cc3ce8152925141a3002b4365c75d84d37a3e5"
+    ],
+    "tests/ignite/metrics/test_metrics_lambda.py": [
+     "blob",
+     "8a5855f1dfddda0dba5b60f57753250c10802939"
+    ]
+   },
+   "pytorch__ignite-484": {
+    "ignite/metrics/confusion_matrix.py": [
+     "blob",
+     "4325e3b869ccb3059df00772b72d99c46f924451"
+    ],
+    "tests/ignite/metrics/test_confusion_matrix.py": [
+     "blob",
+     "e8a4f2a881d3360ab80a54a831bc7e354b838a88"
+    ],
+    "ignite/metrics": [
+     "tree",
+     "3ae17e3855fc6aad6aac7df5185873fc60311b34"
+    ],
+    "README.rst": [
+     "blob",
+     "62b95a738f0d56d5ed571caa83f3211732c92582"
+    ],
+    ".": [
+     "tree",
+     "53cc38e328760f649cf89aacbdc625f6fb1c5af0"
+    ],
+    "ignite/metrics/metric.py": [
+     "blob",
+     "4520d2aa7ddab7574ab2f29923ea088e60350852"
+    ],
+    "ignite/metrics/metrics_lambda.py": [
+     "blob",
+     "e8cc3ce8152925141a3002b4365c75d84d37a3e5"
+    ],
+    "tests/ignite/metrics/test_metrics_lambda.py": [
+     "blob",
+     "8a5855f1dfddda0dba5b60f57753250c10802939"
+    ]
+   },
+   "pytorch__ignite-281": {
+    "ignite/metrics/confusion_matrix.py": null,
+    "tests/ignite/metrics/test_confusion_matrix.py": null,
+    "ignite/metrics": [
+     "tree",
+     "8098da17d83b3d871e3a098c2f4cc147a1ee89e1"
+    ],
+    "README.rst": [
+     "blob",
+     "e0759e425596f182cd5bad925672c95e6b6a4551"
+    ],
+    ".": [
+     "tree",
+     "854751b5097ab3a71390be9bc229759f99c2bde6"
+    ],
+    "ignite/metrics/metric.py": [
+     "blob",
+     "e28e79a12e64b079247399453b6155b95df2db30"
+    ],
+    "ignite/metrics/metrics_lambda.py": null,
+    "tests/ignite/metrics/test_metrics_lambda.py": null
+   },
+   "pytorch__ignite-69": {
+    "ignite/metrics/confusion_matrix.py": null,
+    "tests/ignite/metrics/test_confusion_matrix.py": null,
+    "ignite/metrics": null,
+    "README.rst": [
+     "blob",
+     "18da38e3c96e86dad39b6014043d763ba1feb232"
+    ],
+    ".": [
+     "tree",
+     "852c13c2e5fa205866152943031b04b13993aa3f"
+    ],
+    "ignite/metrics/metric.py": null,
+    "ignite/metrics/metrics_lambda.py": null,
+    "tests/ignite/metrics/test_metrics_lambda.py": null
+   },
+   "pytorch__ignite-385": {
+    "ignite/metrics/confusion_matrix.py": null,
+    "tests/ignite/metrics/test_confusion_matrix.py": null,
+    "ignite/metrics": [
+     "tree",
+     "4252b54c43444f7ee7ebfca08cd1c80c494a2920"
+    ],
+    "README.rst": [
+     "blob",
+     "5f0253bfaad578cef82756f0faf1ef5fd52d3913"
+    ],
+    ".": [
+     "tree",
+     "22cd153f1a7f55c0b5ac337ff0329c7ca444a875"
+    ],
+    "ignite/metrics/metric.py": [
+     "blob",
+     "c1e99ccf39d8d1ca3465c9051043928c9013ebdb"
+    ],
+    "ignite/metrics/metrics_lambda.py": [
+     "blob",
+     "a3e27dcd4ae7e35905ce92d7dceaefb4536c0dbf"
+    ],
+    "tests/ignite/metrics/test_metrics_lambda.py": [
+     "blob",
+     "aa7de4e9af5f09331e7d579d489e427a41378021"
+    ]
+   }
+  },
+  "fresh_increment_tok": 26375,
+  "fresh_increment_share": 0.913,
+  "provenance": "GitHub contents API (blob/tree sha of each path at each base commit) and compare API"
+ },
+ "stricter_readings": {
+  "gold_file_only_tok": 9051,
+  "gold_file_only_share": 0.0684,
+  "gold_file_plus_dir_tok": 11576,
+  "gold_file_plus_dir_share": 0.0875,
+  "test_file_full_read_tok": 17324,
+  "note": "the earlier run viewed only lines 1-50 of the test file plus a grep, so the path-level match credits a full read it never made; the gold file is the file the agent edited, which agents normally read before editing"
+ },
+ "illustrative_note": {
+  "file": "memory-note-illustrative.md",
+  "chars": 7747,
+  "tokens": 1937,
+  "cost_if_injected_before_call_1_cache_weighted_tok": 8715,
+  "formula": "tokens x (1 + 0.1 x (llm_calls - 1)), same weighting as the replay",
+  "increment_net_of_note_tok": 20185,
+  "increment_net_of_note_share": 0.1526
+ }
+}

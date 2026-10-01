@@ -1,0 +1,26 @@
+diff --git a/src/streamlink/plugins/powerapp.py b/src/streamlink/plugins/powerapp.py
+index 0ad0dda1..a9916957 100644
+--- a/src/streamlink/plugins/powerapp.py
++++ b/src/streamlink/plugins/powerapp.py
+@@ -7,7 +7,7 @@ from streamlink.stream import HLSStream
+ 
+ 
+ class PowerApp(Plugin):
+-    url_re = re.compile(r"https?://(?:www.)?powerapp.com.tr/tv/(\w+)")
++    url_re = re.compile(r"https?://(?:www.)?powerapp.com.tr/tv[s]?/(\w+)")
+     api_url = "http://api.powergroup.com.tr/Channels/{0}/?appRef=iPowerWeb&apiVersion=11"
+     api_schema = validate.Schema(validate.all({
+         "errorCode": 0,
+diff --git a/tests/plugins/test_powerapp.py b/tests/plugins/test_powerapp.py
+index 043e4df9..1f987317 100644
+--- a/tests/plugins/test_powerapp.py
++++ b/tests/plugins/test_powerapp.py
+@@ -9,6 +9,8 @@ class TestPluginPowerApp(unittest.TestCase):
+             'http://powerapp.com.tr/tv/powertv4k',
+             'http://powerapp.com.tr/tv/powerturktv4k',
+             'http://powerapp.com.tr/tv/powerEarthTV',
++            'http://www.powerapp.com.tr/tvs/powertv',
++            'http://powerapp.com.tr/tvs/powertv',
+         ]
+         for url in should_match:
+             self.assertTrue(PowerApp.can_handle_url(url))

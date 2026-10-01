@@ -1,0 +1,1828 @@
+{
+ "_what": "Replay of recorded third-party agent runs; no memory system was run. Overlap is measured after the fact at path/query level (a ceiling). Tokens = characters/4; not dollars.",
+ "_sources": {
+  "tasks": "HF nebius/SWE-rebench, test split (CC BY 4.0), file rebench-test-0000{0,1}-of-00002.parquet",
+  "trajectories": "HF nebius/SWE-rebench-openhands-trajectories (CC BY 4.0), file trajectories.parquet; model Qwen3-Coder-480B-A35B-Instruct, OpenHands v0.54.0",
+  "replay": "per_task.parquet / per_task_attrib.json from scripts/per_task_replay.py; trajs.parquet / actions.parquet from the extraction step",
+  "staleness": "GitHub contents + compare API via scripts/staleness.py",
+  "upstream_licence": "streamlink/streamlink: BSD-2-Clause (GitHub licence API; LICENSE-streamlink.txt)"
+ },
+ "definitions": {
+  "tenants": "per repo, tasks sorted by created_at and dealt round-robin to tenant-1..3; a task may use only tasks with strictly earlier created_at",
+  "own_history": "earlier tasks of the same tenant",
+  "pool": "earlier tasks of all 3 tenants",
+  "cross_tenant_increment": "pool minus own history",
+  "exploration": "file views/reads (path), directory listings (path), searches (exact normalized command), git log/show/blame (command); first touch within the task only",
+  "obs_tokens": "observation characters / 4, counted once",
+  "footprint_tokens_cache_weighted": "(observation + the assistant message that issued it) / 4, weighted 1.0 the first time it is fed to the model and 0.1 on every later call; assistant text is also counted once as output",
+  "task_tokens_cache_weighted": "the same weighting over every message of the trajectory"
+ },
+ "task": {
+  "instance_id": "streamlink__streamlink-2229",
+  "repo": "streamlink/streamlink",
+  "base_commit": "94a8a7301c45dfdee89dd7d4d14043438dda4b38",
+  "created_at": "2019-01-03 12:54:25+00:00",
+  "created_at_is": "creation time of the upstream pull request",
+  "pull_request": "https://github.com/streamlink/streamlink/pull/2229",
+  "issue": "https://github.com/streamlink/streamlink/issues/2221",
+  "licence": "BSD 2-Clause \"Simplified\" License",
+  "gold_files": [
+   "src/streamlink/plugins/powerapp.py"
+  ],
+  "gold_patch_changed_lines": 2,
+  "fail_to_pass": [
+   "tests/plugins/test_powerapp.py::TestPluginPowerApp::test_can_handle_url"
+  ],
+  "pass_to_pass": [
+   "tests/plugins/test_powerapp.py::TestPluginPowerApp::test_can_handle_url_negative"
+  ],
+  "provenance": "rebench-test parquet, row instance_id=streamlink__streamlink-2229"
+ },
+ "agent_run": {
+  "trajectory_id": "chatcmpl-6b79e90a6acced751d14f46ca8f10228",
+  "tenant": "tenant-1",
+  "resolved": 1,
+  "exit_status": "submit",
+  "llm_calls": 37,
+  "tool_calls": 37,
+  "messages": 75,
+  "task_tokens_flat": 32948,
+  "task_tokens_cache_weighted": 112421,
+  "model_patch_files": [
+   "src/streamlink/plugins/powerapp.py",
+   "tests/plugins/test_powerapp.py"
+  ],
+  "provenance": "trajectories.parquet row trajectory_id=chatcmpl-6b79e90a6acced751d14f46ca8f10228; totals from per_task.parquet (tot_tokens_flat, tot_tokens_cache, n_calls)",
+  "steps": [
+   {
+    "step": 1,
+    "tool": "think",
+    "action": "(reasoning note)",
+    "category": "think",
+    "keys": [],
+    "obs_tokens": 7,
+    "footprint_tokens_cache_weighted": 1949,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 2,
+    "tool": "str_replace_editor",
+    "action": "view /workspace",
+    "category": "explore-dir",
+    "keys": [
+     "D:EXT:/workspace"
+    ],
+    "obs_tokens": 372,
+    "footprint_tokens_cache_weighted": 3018,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [
+     "streamlink__streamlink-2102",
+     "streamlink__streamlink-886"
+    ],
+    "earlier_other_tenants": [
+     "streamlink__streamlink-1660",
+     "streamlink__streamlink-1878",
+     "streamlink__streamlink-2160",
+     "streamlink__streamlink-2228"
+    ],
+    "replay_class": "repeat of own history"
+   },
+   {
+    "step": 3,
+    "tool": "str_replace_editor",
+    "action": "view <repo>",
+    "category": "explore-dir",
+    "keys": [
+     "D:."
+    ],
+    "obs_tokens": 1530,
+    "footprint_tokens_cache_weighted": 6698,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [
+     "streamlink__streamlink-2102",
+     "streamlink__streamlink-886"
+    ],
+    "earlier_other_tenants": [
+     "streamlink__streamlink-1660",
+     "streamlink__streamlink-2160",
+     "streamlink__streamlink-2228"
+    ],
+    "replay_class": "repeat of own history"
+   },
+   {
+    "step": 4,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/README.md",
+    "category": "explore-read",
+    "keys": [
+     "F:README.md"
+    ],
+    "obs_tokens": 1790,
+    "footprint_tokens_cache_weighted": 7644,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [
+     "streamlink__streamlink-2102",
+     "streamlink__streamlink-886"
+    ],
+    "earlier_other_tenants": [
+     "streamlink__streamlink-1660",
+     "streamlink__streamlink-1878",
+     "streamlink__streamlink-2160",
+     "streamlink__streamlink-2228"
+    ],
+    "replay_class": "repeat of own history"
+   },
+   {
+    "step": 5,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink",
+    "category": "explore-dir",
+    "keys": [
+     "D:src/streamlink"
+    ],
+    "obs_tokens": 4082,
+    "footprint_tokens_cache_weighted": 16923,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [
+     "streamlink__streamlink-2102"
+    ],
+    "earlier_other_tenants": [
+     "streamlink__streamlink-2160"
+    ],
+    "replay_class": "repeat of own history"
+   },
+   {
+    "step": 6,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink/plugins/powerapp.py",
+    "category": "explore-read",
+    "keys": [
+     "F:src/streamlink/plugins/powerapp.py"
+    ],
+    "obs_tokens": 332,
+    "footprint_tokens_cache_weighted": 1581,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [],
+    "earlier_other_tenants": [],
+    "replay_class": "new"
+   },
+   {
+    "step": 7,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/tests/plugins",
+    "category": "explore-dir",
+    "keys": [
+     "D:tests/plugins"
+    ],
+    "obs_tokens": 3150,
+    "footprint_tokens_cache_weighted": 12494,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [],
+    "earlier_other_tenants": [
+     "streamlink__streamlink-2228"
+    ],
+    "replay_class": "repeat of another tenant only (cross-tenant increment)"
+   },
+   {
+    "step": 8,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/tests/plugins/test_powerapp.py",
+    "category": "explore-read",
+    "keys": [
+     "F:tests/plugins/test_powerapp.py"
+    ],
+    "obs_tokens": 230,
+    "footprint_tokens_cache_weighted": 1073,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [],
+    "earlier_other_tenants": [],
+    "replay_class": "new"
+   },
+   {
+    "step": 9,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_powerapp.py -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 1745,
+    "footprint_tokens_cache_weighted": 6669,
+    "failed": true,
+    "error_signature": "ModuleNotFoundError: No module named 'streamlink'",
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 10,
+    "tool": "execute_bash",
+    "action": "pip install -e .",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 699,
+    "footprint_tokens_cache_weighted": 2659,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 11,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_powerapp.py -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 1498,
+    "footprint_tokens_cache_weighted": 5411,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 12,
+    "tool": "execute_bash",
+    "action": "streamlink http://www.powerapp.com.tr/tvs/powertv best",
+    "category": "other",
+    "keys": [],
+    "obs_tokens": 82,
+    "footprint_tokens_cache_weighted": 524,
+    "failed": true,
+    "error_signature": "error: No plugin can handle URL: http://www.powerapp.com.tr/tvs/powertv",
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 13,
+    "tool": "execute_bash",
+    "action": "streamlink http://powerapp.com.tr/tv/powertv4k best",
+    "category": "other",
+    "keys": [],
+    "obs_tokens": 105,
+    "footprint_tokens_cache_weighted": 746,
+    "failed": true,
+    "error_signature": "error: Unable to parse JSON: Expecting value: line 1 column 1 (char 0) ()",
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 14,
+    "tool": "execute_bash",
+    "action": "grep -r \"powerapp\" src/",
+    "category": "explore-search",
+    "keys": [
+     "S:grep -r \"powerapp\" src/"
+    ],
+    "obs_tokens": 133,
+    "footprint_tokens_cache_weighted": 750,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [],
+    "earlier_other_tenants": [],
+    "replay_class": "new"
+   },
+   {
+    "step": 15,
+    "tool": "think",
+    "action": "(reasoning note)",
+    "category": "think",
+    "keys": [],
+    "obs_tokens": 7,
+    "footprint_tokens_cache_weighted": 850,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 16,
+    "tool": "execute_bash",
+    "action": "ls src/streamlink/plugins/*turk*",
+    "category": "explore-dir",
+    "keys": [
+     "D:src/streamlink/plugins/*turk*"
+    ],
+    "obs_tokens": 60,
+    "footprint_tokens_cache_weighted": 350,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [],
+    "earlier_other_tenants": [],
+    "replay_class": "new"
+   },
+   {
+    "step": 17,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink/plugins/turkuvaz.py",
+    "category": "explore-read",
+    "keys": [
+     "F:src/streamlink/plugins/turkuvaz.py"
+    ],
+    "obs_tokens": 622,
+    "footprint_tokens_cache_weighted": 1924,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [],
+    "earlier_other_tenants": [],
+    "replay_class": "new"
+   },
+   {
+    "step": 18,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink/plugins/dogan.py lines 1-30",
+    "category": "explore-read",
+    "keys": [
+     "F:src/streamlink/plugins/dogan.py"
+    ],
+    "obs_tokens": 347,
+    "footprint_tokens_cache_weighted": 1190,
+    "failed": false,
+    "error_signature": null,
+    "earlier_same_tenant": [],
+    "earlier_other_tenants": [],
+    "replay_class": "new"
+   },
+   {
+    "step": 19,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 85,
+    "footprint_tokens_cache_weighted": 757,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 20,
+    "tool": "str_replace_editor",
+    "action": "create <repo>/reproduce_issue.py",
+    "category": "edit",
+    "keys": [
+     "E:reproduce_issue.py"
+    ],
+    "obs_tokens": 22,
+    "footprint_tokens_cache_weighted": 2029,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 21,
+    "tool": "execute_bash",
+    "action": "python reproduce_issue.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 242,
+    "footprint_tokens_cache_weighted": 691,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 22,
+    "tool": "str_replace_editor",
+    "action": "str_replace <repo>/src/streamlink/plugins/powerapp.py",
+    "category": "edit",
+    "keys": [
+     "E:src/streamlink/plugins/powerapp.py"
+    ],
+    "obs_tokens": 167,
+    "footprint_tokens_cache_weighted": 1944,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 23,
+    "tool": "execute_bash",
+    "action": "python reproduce_issue.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 242,
+    "footprint_tokens_cache_weighted": 700,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 24,
+    "tool": "execute_bash",
+    "action": "streamlink http://www.powerapp.com.tr/tvs/powertv best --loglevel debug",
+    "category": "other",
+    "keys": [],
+    "obs_tokens": 160,
+    "footprint_tokens_cache_weighted": 516,
+    "failed": true,
+    "error_signature": "error: Unable to parse JSON: Expecting value: line 1 column 1 (char 0) ()",
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 25,
+    "tool": "execute_bash",
+    "action": "streamlink http://powerapp.com.tr/tv/powertv4k best --loglevel debug",
+    "category": "other",
+    "keys": [],
+    "obs_tokens": 160,
+    "footprint_tokens_cache_weighted": 671,
+    "failed": true,
+    "error_signature": "error: Unable to parse JSON: Expecting value: line 1 column 1 (char 0) ()",
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 26,
+    "tool": "str_replace_editor",
+    "action": "str_replace <repo>/tests/plugins/test_powerapp.py",
+    "category": "edit",
+    "keys": [
+     "E:tests/plugins/test_powerapp.py"
+    ],
+    "obs_tokens": 256,
+    "footprint_tokens_cache_weighted": 1280,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 27,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_powerapp.py -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 1438,
+    "footprint_tokens_cache_weighted": 2846,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 28,
+    "tool": "str_replace_editor",
+    "action": "create <repo>/comprehensive_test.py",
+    "category": "edit",
+    "keys": [
+     "E:comprehensive_test.py"
+    ],
+    "obs_tokens": 23,
+    "footprint_tokens_cache_weighted": 1927,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 29,
+    "tool": "execute_bash",
+    "action": "python comprehensive_test.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 307,
+    "footprint_tokens_cache_weighted": 590,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 30,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/test_plugins.py -v -k \"powerapp\"",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 1194,
+    "footprint_tokens_cache_weighted": 2068,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 31,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 74,
+    "footprint_tokens_cache_weighted": 451,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 32,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink/plugins/powerapp.py",
+    "category": "explore-read",
+    "keys": [
+     "F:src/streamlink/plugins/powerapp.py"
+    ],
+    "obs_tokens": 332,
+    "footprint_tokens_cache_weighted": 640,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "within-task re-read (not counted)"
+   },
+   {
+    "step": 33,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/tests/plugins/test_powerapp.py",
+    "category": "explore-read",
+    "keys": [
+     "F:tests/plugins/test_powerapp.py"
+    ],
+    "obs_tokens": 260,
+    "footprint_tokens_cache_weighted": 406,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "within-task re-read (not counted)"
+   },
+   {
+    "step": 34,
+    "tool": "execute_bash",
+    "action": "streamlink http://www.powerapp.com.tr/tvs/powertv best",
+    "category": "other",
+    "keys": [],
+    "obs_tokens": 106,
+    "footprint_tokens_cache_weighted": 231,
+    "failed": true,
+    "error_signature": "error: Unable to parse JSON: Expecting value: line 1 column 1 (char 0) ()",
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 35,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_powerapp.py tests/test_plugins.py::TestPlugins::test_powerapp_load -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 1686,
+    "footprint_tokens_cache_weighted": 2116,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 36,
+    "tool": "execute_bash",
+    "action": "rm reproduce_issue.py comprehensive_test.py",
+    "category": "write",
+    "keys": [],
+    "obs_tokens": 51,
+    "footprint_tokens_cache_weighted": 140,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   },
+   {
+    "step": 37,
+    "tool": "finish",
+    "action": "(submit)",
+    "category": "finish",
+    "keys": [],
+    "obs_tokens": 0,
+    "footprint_tokens_cache_weighted": 816,
+    "failed": false,
+    "error_signature": null,
+    "replay_class": "not exploration"
+   }
+  ]
+ },
+ "history": {
+  "own": [
+   {
+    "instance_id": "streamlink__streamlink-886",
+    "tenant": "tenant-1",
+    "created_at": "2017-05-05 16:07:06+00:00"
+   },
+   {
+    "instance_id": "streamlink__streamlink-2102",
+    "tenant": "tenant-1",
+    "created_at": "2018-10-07 00:44:28+00:00"
+   }
+  ],
+  "pool": [
+   {
+    "instance_id": "streamlink__streamlink-886",
+    "tenant": "tenant-1",
+    "created_at": "2017-05-05 16:07:06+00:00"
+   },
+   {
+    "instance_id": "streamlink__streamlink-1660",
+    "tenant": "tenant-2",
+    "created_at": "2018-05-16 14:48:22+00:00"
+   },
+   {
+    "instance_id": "streamlink__streamlink-1878",
+    "tenant": "tenant-3",
+    "created_at": "2018-06-28 23:50:29+00:00"
+   },
+   {
+    "instance_id": "streamlink__streamlink-2102",
+    "tenant": "tenant-1",
+    "created_at": "2018-10-07 00:44:28+00:00"
+   },
+   {
+    "instance_id": "streamlink__streamlink-2160",
+    "tenant": "tenant-2",
+    "created_at": "2018-11-09 19:15:05+00:00"
+   },
+   {
+    "instance_id": "streamlink__streamlink-2228",
+    "tenant": "tenant-3",
+    "created_at": "2019-01-03 12:48:51+00:00"
+   }
+  ],
+  "provenance": "per_task.parquet own_hist / pool_hist and idx ordering"
+ },
+ "replay": {
+  "first_touch_exploration_actions": 11,
+  "repeated_from_own_history_actions": 4,
+  "repeated_from_pool_actions": 5,
+  "removable_own_history_tokens_cache_weighted": 34283,
+  "removable_pool_tokens_cache_weighted": 46777,
+  "cross_tenant_increment_tokens_cache_weighted": 12494,
+  "own_share": 0.305,
+  "pool_share": 0.4161,
+  "increment_share": 0.1111,
+  "removable_own_history_obs_tokens_flat": 7774,
+  "removable_pool_obs_tokens_flat": 10923,
+  "increment_obs_tokens_flat_action": 3150,
+  "increment_actions": [
+   {
+    "cat": "explore-dir",
+    "keys": [
+     "D:tests/plugins"
+    ],
+    "fp_tok": 12494,
+    "obs_tok": 3150
+   }
+  ],
+  "increment_sources": [
+   {
+    "instance_id": "streamlink__streamlink-2228",
+    "tenant": "tenant-3",
+    "created_at": "2019-01-03 12:48:51+00:00",
+    "covers_incr_tok": 12494
+   }
+  ],
+  "gold_file_opened_or_edited_by_any_earlier_task": false,
+  "gold_file_note": "path level: no earlier run opened (file view/read) or edited the gold file and no earlier gold patch touched it; its file name does appear inside directory-listing observations of earlier runs (e.g. the src/streamlink listing of 2102 and 2160)",
+  "note": "flat obs increment by subtraction of rounded totals = 3149; the single action is 3150 (rounding)",
+  "provenance": "per_task.parquet row streamlink__streamlink-2229 (removable_self_tok, removable_pool_tok, incr_tok, self_share, pool_share, incr_share, removable_*_obs_flat_tok, n_first_expl, n_rep_*); per_task_attrib.json[streamlink__streamlink-2229]"
+ },
+ "tests_plugins_listing": {
+  "step": 7,
+  "entries": 177,
+  "test_files": 174,
+  "provenance": "observation of the str_replace_editor view of tests/plugins in the target trajectory"
+ },
+ "earlier_task": {
+  "instance_id": "streamlink__streamlink-2228",
+  "tenant": "tenant-3",
+  "created_at": "2019-01-03 12:48:51+00:00",
+  "base_commit": "94a8a7301c45dfdee89dd7d4d14043438dda4b38",
+  "minutes_before_target": 5.6,
+  "pull_request": "https://github.com/streamlink/streamlink/pull/2228",
+  "issue": "https://github.com/streamlink/streamlink/issues/2222",
+  "title": "FilmOn.py  No plugin can handle",
+  "trajectory_id": "chatcmpl-acf28a425900fef52b385c8c53172185",
+  "resolved": 0,
+  "llm_calls": 47,
+  "task_tokens_cache_weighted": 193636,
+  "task_tokens_flat": 54526,
+  "gold_code_files": [
+   "script/makeinstaller.sh",
+   "src/streamlink/plugins/afreeca.py",
+   "src/streamlink/plugins/filmon.py"
+  ],
+  "fail_to_pass": [
+   "tests/plugins/test_afreeca.py::TestPluginAfreecaTV::test_can_handle_url",
+   "tests/plugins/test_filmon.py::TestPluginFilmon::test_can_handle_url",
+   "tests/plugins/test_filmon.py::TestPluginFilmon::test_regex_live_stream_tv_with_channel_in_name"
+  ],
+  "dirs_listed": [
+   ".",
+   "EXT:/workspace",
+   "src",
+   "src/streamlink/plugins",
+   "tests/plugins"
+  ],
+  "files_read": [
+   "README.md",
+   "src/streamlink/plugins/filmon.py",
+   "tests/plugins/test_filmon.py"
+  ],
+  "searches": [],
+  "files_edited": [
+   "src/streamlink/plugins/filmon.py",
+   "tests/plugins/test_filmon.py"
+  ],
+  "scratch_files_created": [
+   "debug_regex.py",
+   "debug_regex2.py",
+   "debug_regex3.py",
+   "test_comprehensive.py",
+   "test_issue_reproduction.py"
+  ],
+  "final_diff_files": [
+   {
+    "path": "src/streamlink/plugins/filmon.py",
+    "added": 2,
+    "removed": 0
+   },
+   {
+    "path": "test_issue_reproduction.py",
+    "added": 49,
+    "removed": 0
+   },
+   {
+    "path": "tests/plugins/test_filmon.py",
+    "added": 22,
+    "removed": 0
+   }
+  ],
+  "tests_plugins_listing_test_files": 174,
+  "setup_detour_steps": [
+   8,
+   9,
+   false
+  ],
+  "steps": [
+   {
+    "step": 1,
+    "tool": "think",
+    "action": "(reasoning note)",
+    "category": "think",
+    "keys": [],
+    "obs_tokens": 7,
+    "footprint_tokens_cache_weighted": 2599,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 2,
+    "tool": "str_replace_editor",
+    "action": "view /workspace",
+    "category": "explore-dir",
+    "keys": [
+     "D:EXT:/workspace"
+    ],
+    "obs_tokens": 372,
+    "footprint_tokens_cache_weighted": 3809,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 3,
+    "tool": "str_replace_editor",
+    "action": "view <repo>",
+    "category": "explore-dir",
+    "keys": [
+     "D:."
+    ],
+    "obs_tokens": 1530,
+    "footprint_tokens_cache_weighted": 8250,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 4,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/README.md",
+    "category": "explore-read",
+    "keys": [
+     "F:README.md"
+    ],
+    "obs_tokens": 1790,
+    "footprint_tokens_cache_weighted": 9459,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 5,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src",
+    "category": "explore-dir",
+    "keys": [
+     "D:src"
+    ],
+    "obs_tokens": 588,
+    "footprint_tokens_cache_weighted": 3268,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 6,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink/plugins",
+    "category": "explore-dir",
+    "keys": [
+     "D:src/streamlink/plugins"
+    ],
+    "obs_tokens": 3405,
+    "footprint_tokens_cache_weighted": 17292,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 7,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/tests/plugins",
+    "category": "explore-dir",
+    "keys": [
+     "D:tests/plugins"
+    ],
+    "obs_tokens": 3150,
+    "footprint_tokens_cache_weighted": 15757,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 8,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_filmon.py -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 2033,
+    "footprint_tokens_cache_weighted": 10101,
+    "failed": true,
+    "error_signature": "ModuleNotFoundError: No module named 'streamlink'"
+   },
+   {
+    "step": 9,
+    "tool": "execute_bash",
+    "action": "pip install -e .",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 866,
+    "footprint_tokens_cache_weighted": 4346,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 10,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 193,
+    "footprint_tokens_cache_weighted": 1695,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 11,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 240,
+    "footprint_tokens_cache_weighted": 2090,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 12,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 288,
+    "footprint_tokens_cache_weighted": 2503,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 13,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink/plugins/filmon.py",
+    "category": "explore-read",
+    "keys": [
+     "F:src/streamlink/plugins/filmon.py"
+    ],
+    "obs_tokens": 2520,
+    "footprint_tokens_cache_weighted": 11247,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 14,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/tests/plugins/test_filmon.py",
+    "category": "explore-read",
+    "keys": [
+     "F:tests/plugins/test_filmon.py"
+    ],
+    "obs_tokens": 779,
+    "footprint_tokens_cache_weighted": 3514,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 15,
+    "tool": "think",
+    "action": "(reasoning note)",
+    "category": "think",
+    "keys": [],
+    "obs_tokens": 7,
+    "footprint_tokens_cache_weighted": 2271,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 16,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 343,
+    "footprint_tokens_cache_weighted": 2526,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 17,
+    "tool": "execute_bash",
+    "action": "python3 -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 444,
+    "footprint_tokens_cache_weighted": 2958,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 18,
+    "tool": "str_replace_editor",
+    "action": "create <repo>/debug_regex.py",
+    "category": "edit",
+    "keys": [
+     "E:debug_regex.py"
+    ],
+    "obs_tokens": 21,
+    "footprint_tokens_cache_weighted": 2176,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 19,
+    "tool": "execute_bash",
+    "action": "python debug_regex.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 185,
+    "footprint_tokens_cache_weighted": 795,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 20,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/tests/plugins/test_filmon.py lines 8-18",
+    "category": "explore-read",
+    "keys": [
+     "F:tests/plugins/test_filmon.py"
+    ],
+    "obs_tokens": 186,
+    "footprint_tokens_cache_weighted": 1573,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 21,
+    "tool": "str_replace_editor",
+    "action": "create <repo>/debug_regex2.py",
+    "category": "edit",
+    "keys": [
+     "E:debug_regex2.py"
+    ],
+    "obs_tokens": 21,
+    "footprint_tokens_cache_weighted": 3410,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 22,
+    "tool": "execute_bash",
+    "action": "python debug_regex2.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 318,
+    "footprint_tokens_cache_weighted": 1186,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 23,
+    "tool": "str_replace_editor",
+    "action": "create <repo>/debug_regex3.py",
+    "category": "edit",
+    "keys": [
+     "E:debug_regex3.py"
+    ],
+    "obs_tokens": 21,
+    "footprint_tokens_cache_weighted": 3219,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 24,
+    "tool": "execute_bash",
+    "action": "python debug_regex3.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 302,
+    "footprint_tokens_cache_weighted": 1065,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 25,
+    "tool": "str_replace_editor",
+    "action": "create <repo>/test_issue_reproduction.py",
+    "category": "edit",
+    "keys": [
+     "E:test_issue_reproduction.py"
+    ],
+    "obs_tokens": 24,
+    "footprint_tokens_cache_weighted": 2054,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 26,
+    "tool": "execute_bash",
+    "action": "python test_issue_reproduction.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 188,
+    "footprint_tokens_cache_weighted": 668,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 27,
+    "tool": "str_replace_editor",
+    "action": "str_replace <repo>/src/streamlink/plugins/filmon.py",
+    "category": "edit",
+    "keys": [
+     "E:src/streamlink/plugins/filmon.py"
+    ],
+    "obs_tokens": 304,
+    "footprint_tokens_cache_weighted": 3252,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 28,
+    "tool": "execute_bash",
+    "action": "python test_issue_reproduction.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 162,
+    "footprint_tokens_cache_weighted": 597,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 29,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_filmon.py -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 3728,
+    "footprint_tokens_cache_weighted": 10270,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 30,
+    "tool": "str_replace_editor",
+    "action": "create <repo>/test_comprehensive.py",
+    "category": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "obs_tokens": 23,
+    "footprint_tokens_cache_weighted": 3078,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 31,
+    "tool": "execute_bash",
+    "action": "python test_comprehensive.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 360,
+    "footprint_tokens_cache_weighted": 990,
+    "failed": true,
+    "error_signature": "AssertionError: Should resolve to Filmon plugin: http://www.filmon.com/tv/channel-4"
+   },
+   {
+    "step": 32,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 207,
+    "footprint_tokens_cache_weighted": 1063,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 33,
+    "tool": "str_replace_editor",
+    "action": "str_replace <repo>/test_comprehensive.py",
+    "category": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "obs_tokens": 377,
+    "footprint_tokens_cache_weighted": 2290,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 34,
+    "tool": "execute_bash",
+    "action": "python test_comprehensive.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 408,
+    "footprint_tokens_cache_weighted": 977,
+    "failed": true,
+    "error_signature": "AssertionError: Should resolve to Filmon plugin: https://www.filmon.com/tv/more4"
+   },
+   {
+    "step": 35,
+    "tool": "execute_bash",
+    "action": "python -c \" ...",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 291,
+    "footprint_tokens_cache_weighted": 1200,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 36,
+    "tool": "str_replace_editor",
+    "action": "str_replace <repo>/test_comprehensive.py",
+    "category": "edit",
+    "keys": [
+     "E:test_comprehensive.py"
+    ],
+    "obs_tokens": 604,
+    "footprint_tokens_cache_weighted": 3875,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 37,
+    "tool": "execute_bash",
+    "action": "python test_comprehensive.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 292,
+    "footprint_tokens_cache_weighted": 628,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 38,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/test_plugins.py -v -k filmon",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 1484,
+    "footprint_tokens_cache_weighted": 2825,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 39,
+    "tool": "str_replace_editor",
+    "action": "str_replace <repo>/tests/plugins/test_filmon.py",
+    "category": "edit",
+    "keys": [
+     "E:tests/plugins/test_filmon.py"
+    ],
+    "obs_tokens": 397,
+    "footprint_tokens_cache_weighted": 1880,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 40,
+    "tool": "str_replace_editor",
+    "action": "str_replace <repo>/tests/plugins/test_filmon.py",
+    "category": "edit",
+    "keys": [
+     "E:tests/plugins/test_filmon.py"
+    ],
+    "obs_tokens": 361,
+    "footprint_tokens_cache_weighted": 1406,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 41,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_filmon.py::TestPluginFilmon::test_regex_channel_dash_pattern -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 1478,
+    "footprint_tokens_cache_weighted": 2364,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 42,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_filmon.py -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 4478,
+    "footprint_tokens_cache_weighted": 6342,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 43,
+    "tool": "execute_bash",
+    "action": "python test_issue_reproduction.py",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 162,
+    "footprint_tokens_cache_weighted": 345,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 44,
+    "tool": "execute_bash",
+    "action": "python -m pytest tests/plugins/test_filmon.py tests/test_plugins.py::TestPlugins::test_filmon_load -v",
+    "category": "run",
+    "keys": [],
+    "obs_tokens": 4726,
+    "footprint_tokens_cache_weighted": 6067,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 45,
+    "tool": "execute_bash",
+    "action": "rm debug_regex.py debug_regex2.py debug_regex3.py test_comprehensive.py",
+    "category": "write",
+    "keys": [],
+    "obs_tokens": 51,
+    "footprint_tokens_cache_weighted": 164,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 46,
+    "tool": "str_replace_editor",
+    "action": "view <repo>/src/streamlink/plugins/filmon.py lines 160-180",
+    "category": "explore-read",
+    "keys": [
+     "F:src/streamlink/plugins/filmon.py"
+    ],
+    "obs_tokens": 215,
+    "footprint_tokens_cache_weighted": 318,
+    "failed": false,
+    "error_signature": null
+   },
+   {
+    "step": 47,
+    "tool": "finish",
+    "action": "(submit)",
+    "category": "finish",
+    "keys": [],
+    "obs_tokens": 0,
+    "footprint_tokens_cache_weighted": 646,
+    "failed": false,
+    "error_signature": null
+   }
+  ],
+  "earlier_fix_check": {
+   "url": "https://www.filmon.com/tv/channel-4",
+   "expected_groups": [
+    null,
+    "channel-4",
+    null
+   ],
+   "groups_at_base": null,
+   "groups_with_earlier_patch": [
+    null,
+    "4",
+    null
+   ],
+   "provenance": "filmon.py at base commit via GitHub contents API; expectation from the SWE-rebench test_patch"
+  },
+  "illustrative_memory_note": "# ILLUSTRATIVE memory note (generated from the recorded run of streamlink__streamlink-2228, tenant-3, base 94a8a73)\ndirectories listed: ., src, src/streamlink/plugins, tests/plugins\ntests/plugins listing (step 7): 174 files named tests/plugins/test_<plugin>.py\nfiles read: README.md, src/streamlink/plugins/filmon.py, tests/plugins/test_filmon.py\nsetup: step 8 `python -m pytest tests/plugins/test_filmon.py -v` failed with ModuleNotFoundError: No module named 'streamlink'; step 9 ran `pip install -e .`; the error does not recur afterwards\nrepo files edited: src/streamlink/plugins/filmon.py, tests/plugins/test_filmon.py\nfinal diff: src/streamlink/plugins/filmon.py +2/-0, test_issue_reproduction.py +49/-0, tests/plugins/test_filmon.py +22/-0\noutcome: resolved=0 (the recorded run did not pass the hidden tests)",
+  "provenance": "trajectories.parquet row trajectory_id=chatcmpl-acf28a425900fef52b385c8c53172185; per_task.parquet row streamlink__streamlink-2228",
+  "illustrative_memory_note_tokens": 204,
+  "illustrative_memory_note_injection_estimate": {
+   "tokens_cache_weighted": 938,
+   "formula": "note tokens x (1 + 0.1 x (llm_calls - 1)): read once in full, then cached on every later call",
+   "status": "ESTIMATE; not subtracted from any replay number"
+  }
+ },
+ "setup_detour": {
+  "definition": "an execute_bash observation contains \"No module named 'streamlink'\" and a later step runs `pip install -e`",
+  "earliest_13_tasks": [
+   {
+    "instance_id": "streamlink__streamlink-886",
+    "tenant": "tenant-1",
+    "created_at": "2017-05-05 16:07:06+00:00",
+    "error_step": 7,
+    "pip_install_e_step": 8,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-1660",
+    "tenant": "tenant-2",
+    "created_at": "2018-05-16 14:48:22+00:00",
+    "error_step": 7,
+    "pip_install_e_step": 8,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-1878",
+    "tenant": "tenant-3",
+    "created_at": "2018-06-28 23:50:29+00:00",
+    "error_step": 19,
+    "pip_install_e_step": 20,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2102",
+    "tenant": "tenant-1",
+    "created_at": "2018-10-07 00:44:28+00:00",
+    "error_step": 8,
+    "pip_install_e_step": 9,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2160",
+    "tenant": "tenant-2",
+    "created_at": "2018-11-09 19:15:05+00:00",
+    "error_step": 6,
+    "pip_install_e_step": 7,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2228",
+    "tenant": "tenant-3",
+    "created_at": "2019-01-03 12:48:51+00:00",
+    "error_step": 8,
+    "pip_install_e_step": 9,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2229",
+    "tenant": "tenant-1",
+    "created_at": "2019-01-03 12:54:25+00:00",
+    "error_step": 9,
+    "pip_install_e_step": 10,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2513",
+    "tenant": "tenant-2",
+    "created_at": "2019-06-27 06:59:53+00:00",
+    "error_step": 6,
+    "pip_install_e_step": 7,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2575",
+    "tenant": "tenant-3",
+    "created_at": "2019-08-04 16:05:09+00:00",
+    "error_step": 9,
+    "pip_install_e_step": 10,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2580",
+    "tenant": "tenant-1",
+    "created_at": "2019-08-07 16:20:48+00:00",
+    "error_step": 9,
+    "pip_install_e_step": 10,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2765",
+    "tenant": "tenant-2",
+    "created_at": "2020-01-12 23:18:51+00:00",
+    "error_step": 7,
+    "pip_install_e_step": 8,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2780",
+    "tenant": "tenant-3",
+    "created_at": "2020-01-28 08:41:32+00:00",
+    "error_step": 5,
+    "pip_install_e_step": 6,
+    "error_recurs_after": false,
+    "detour": true
+   },
+   {
+    "instance_id": "streamlink__streamlink-2871",
+    "tenant": "tenant-1",
+    "created_at": "2020-04-07 16:22:01+00:00",
+    "error_step": null,
+    "pip_install_e_step": null,
+    "error_recurs_after": null,
+    "detour": false
+   }
+  ],
+  "count_in_13": 12,
+  "count_in_target_pool": 6,
+  "target_pool_size": 6,
+  "count_in_target_own_history": 2,
+  "target_steps": [
+   9,
+   10
+  ],
+  "target_detour_tokens_cache_weighted": 9328,
+  "target_detour_obs_tokens_flat": 2444,
+  "note": "outside the replay: runs are not exploration, so these tokens are not in the replay numbers",
+  "provenance": "trajectories.parquet, the 13 earliest streamlink tasks by created_at"
+ },
+ "staleness": {
+  "cross_tenant": {
+   "task": "streamlink__streamlink-2229",
+   "repo": "streamlink/streamlink",
+   "base_commit": "94a8a7301c45dfdee89dd7d4d14043438dda4b38",
+   "sources": [
+    {
+     "instance_id": "streamlink__streamlink-2228",
+     "tenant": "tenant-3",
+     "created_at": "2019-01-03 12:48:51+00:00",
+     "base_commit": "94a8a7301c45dfdee89dd7d4d14043438dda4b38",
+     "commits_between": 0,
+     "files_changed_between": 0,
+     "compare_status": "identical",
+     "paths": [
+      {
+       "path": "tests/plugins",
+       "cat": "explore-dir",
+       "fp_tok": 12494,
+       "obs_tok": 3150,
+       "same": true,
+       "at_earlier": "33216a3b7f",
+       "at_later": "33216a3b7f",
+       "lines_changed": 0
+      },
+      {
+       "path": "src/streamlink/plugins/powerapp.py",
+       "cat": "gold-only",
+       "fp_tok": 0,
+       "obs_tok": 0,
+       "same": true,
+       "at_earlier": "0ad0dda189",
+       "at_later": "0ad0dda189",
+       "lines_changed": 0
+      }
+     ]
+    }
+   ]
+  },
+  "own_history": {
+   "task": "streamlink__streamlink-2229",
+   "repo": "streamlink/streamlink",
+   "base_commit": "94a8a7301c45dfdee89dd7d4d14043438dda4b38",
+   "sources": [
+    {
+     "instance_id": "streamlink__streamlink-2102",
+     "tenant": "tenant-1",
+     "created_at": "2018-10-07 00:44:28+00:00",
+     "base_commit": "e29c8b75e664671216abc8c660f2dec21310cec9",
+     "commits_between": 51,
+     "files_changed_between": 64,
+     "compare_status": "ahead",
+     "paths": [
+      {
+       "path": ".",
+       "cat": "explore-dir",
+       "fp_tok": 6698,
+       "obs_tok": 1530,
+       "same": false,
+       "at_earlier": "dcb5d9c9d7",
+       "at_later": "e94e4a01fb",
+       "lines_changed": 0
+      },
+      {
+       "path": "README.md",
+       "cat": "explore-read",
+       "fp_tok": 7644,
+       "obs_tok": 1790,
+       "same": true,
+       "at_earlier": "5d6a67d8b7",
+       "at_later": "5d6a67d8b7",
+       "lines_changed": 0
+      },
+      {
+       "path": "src/streamlink",
+       "cat": "explore-dir",
+       "fp_tok": 16923,
+       "obs_tok": 4082,
+       "same": false,
+       "at_earlier": "9d27eea70b",
+       "at_later": "036ce87b62",
+       "lines_changed": 0
+      },
+      {
+       "path": "src/streamlink/plugins/powerapp.py",
+       "cat": "gold-only",
+       "fp_tok": 0,
+       "obs_tok": 0,
+       "same": true,
+       "at_earlier": "0ad0dda189",
+       "at_later": "0ad0dda189",
+       "lines_changed": 0
+      }
+     ]
+    },
+    {
+     "instance_id": "streamlink__streamlink-886",
+     "tenant": "tenant-1",
+     "created_at": "2017-05-05 16:07:06+00:00",
+     "base_commit": "d6a52a53a63ce2648781d529728f9fa9767d6522",
+     "commits_between": 828,
+     "files_changed_between": 300,
+     "compare_status": "ahead",
+     "paths": [
+      {
+       "path": ".",
+       "cat": "explore-dir",
+       "fp_tok": 6698,
+       "obs_tok": 1530,
+       "same": false,
+       "at_earlier": "629c497e9d",
+       "at_later": "e94e4a01fb",
+       "lines_changed": null
+      },
+      {
+       "path": "README.md",
+       "cat": "explore-read",
+       "fp_tok": 7644,
+       "obs_tok": 1790,
+       "same": false,
+       "at_earlier": "f570d7d484",
+       "at_later": "5d6a67d8b7",
+       "lines_changed": null
+      },
+      {
+       "path": "src/streamlink/plugins/powerapp.py",
+       "cat": "gold-only",
+       "fp_tok": 0,
+       "obs_tok": 0,
+       "same": false,
+       "at_earlier": "832bb5ef6a",
+       "at_later": "0ad0dda189",
+       "lines_changed": null
+      }
+     ]
+    }
+   ]
+  },
+  "compare_cross": "https://github.com/streamlink/streamlink/compare/94a8a7301c45dfdee89dd7d4d14043438dda4b38...94a8a7301c45dfdee89dd7d4d14043438dda4b38"
+ },
+ "aggregate_context": {
+  "tasks": 1179,
+  "repos": 18,
+  "own_history_share_of_all_tokens": 0.148,
+  "pool_share_of_all_tokens": 0.1805,
+  "share_of_tasks_with_any_increment": 0.6811,
+  "median_increment_share": 0.0106,
+  "p90_increment_share": 0.1031,
+  "share_of_tasks_with_smaller_increment_than_this_one": 0.9084,
+  "provenance": "per_task.parquet, all rows"
+ },
+ "upstream": {
+  "issue_created_at": {
+   "2221 (powerapp, this task)": "2018-12-31T11:01:28Z",
+   "2222 (filmon, earlier task)": "2018-12-31T14:59:14Z"
+  },
+  "pr_created_at": {
+   "2228": "2019-01-03T12:48:51Z",
+   "2229": "2019-01-03T12:54:25Z"
+  },
+  "pr_titles": {
+   "2228": "plugins.filmon: fix for live tv URLs that start with channel",
+   "2229": "plugin.powerapp: support for \"tvs\" URLs"
+  },
+  "prs_opened_by_same_github_user": true,
+  "issues_opened_by_same_github_user": true,
+  "earlier_task_upstream_pr_files": [
+   "src/streamlink/plugins/filmon.py",
+   "tests/plugins/test_filmon.py"
+  ],
+  "earlier_task_swe_rebench_patch_files": [
+   ".travis.yml",
+   "NOTICE",
+   "docs/index.rst",
+   "docs/plugin_matrix.rst",
+   "icon.svg",
+   "script/makeinstaller.sh",
+   "src/streamlink/plugins/afreeca.py",
+   "src/streamlink/plugins/filmon.py",
+   "tests/plugins/test_afreeca.py",
+   "tests/plugins/test_filmon.py",
+   "win32/LICENSE.txt"
+  ],
+  "provenance": "GitHub issues/pulls API via gh; SWE-rebench patch + test_patch for streamlink__streamlink-2228"
+ },
+ "extra_facts": {
+  "runs_per_task": {
+   "streamlink__streamlink-2229": {
+    "recorded_runs": 13,
+    "resolved_runs": 13,
+    "resolved_runs_touching_afreeca_py": 0
+   },
+   "streamlink__streamlink-2228": {
+    "recorded_runs": 23,
+    "resolved_runs": 12,
+    "resolved_runs_touching_afreeca_py": 0
+   }
+  },
+  "tests_plugins_listing_byte_identical": true,
+  "tests_plugins_listing_chars": {
+   "target": 12598,
+   "earlier": 12598
+  },
+  "swe_rebench_repo_tasks_created_before_target": 22,
+  "of_which_have_recorded_runs": 6,
+  "provenance": "trajectories.parquet (all runs of the two tasks); the tests/plugins observations of both picked runs; rebench-test parquet rows for repo streamlink/streamlink with created_at earlier than the target"
+ },
+ "overlap_by_earlier_task": [
+  {
+   "instance_id": "streamlink__streamlink-886",
+   "tenant": "tenant-1",
+   "created_at": "2017-05-05 16:07:06+00:00",
+   "pull_request": "https://github.com/streamlink/streamlink/pull/886",
+   "same_tenant": true,
+   "target_steps_already_explored": [
+    {
+     "step": 2,
+     "action": "view /workspace",
+     "footprint_tokens_cache_weighted": 3018
+    },
+    {
+     "step": 3,
+     "action": "view <repo>",
+     "footprint_tokens_cache_weighted": 6698
+    },
+    {
+     "step": 4,
+     "action": "view <repo>/README.md",
+     "footprint_tokens_cache_weighted": 7644
+    }
+   ]
+  },
+  {
+   "instance_id": "streamlink__streamlink-1660",
+   "tenant": "tenant-2",
+   "created_at": "2018-05-16 14:48:22+00:00",
+   "pull_request": "https://github.com/streamlink/streamlink/pull/1660",
+   "same_tenant": false,
+   "target_steps_already_explored": [
+    {
+     "step": 2,
+     "action": "view /workspace",
+     "footprint_tokens_cache_weighted": 3018
+    },
+    {
+     "step": 3,
+     "action": "view <repo>",
+     "footprint_tokens_cache_weighted": 6698
+    },
+    {
+     "step": 4,
+     "action": "view <repo>/README.md",
+     "footprint_tokens_cache_weighted": 7644
+    }
+   ]
+  },
+  {
+   "instance_id": "streamlink__streamlink-1878",
+   "tenant": "tenant-3",
+   "created_at": "2018-06-28 23:50:29+00:00",
+   "pull_request": "https://github.com/streamlink/streamlink/pull/1878",
+   "same_tenant": false,
+   "target_steps_already_explored": [
+    {
+     "step": 2,
+     "action": "view /workspace",
+     "footprint_tokens_cache_weighted": 3018
+    },
+    {
+     "step": 4,
+     "action": "view <repo>/README.md",
+     "footprint_tokens_cache_weighted": 7644
+    }
+   ]
+  },
+  {
+   "instance_id": "streamlink__streamlink-2102",
+   "tenant": "tenant-1",
+   "created_at": "2018-10-07 00:44:28+00:00",
+   "pull_request": "https://github.com/streamlink/streamlink/pull/2102",
+   "same_tenant": true,
+   "target_steps_already_explored": [
+    {
+     "step": 2,
+     "action": "view /workspace",
+     "footprint_tokens_cache_weighted": 3018
+    },
+    {
+     "step": 3,
+     "action": "view <repo>",
+     "footprint_tokens_cache_weighted": 6698
+    },
+    {
+     "step": 4,
+     "action": "view <repo>/README.md",
+     "footprint_tokens_cache_weighted": 7644
+    },
+    {
+     "step": 5,
+     "action": "view <repo>/src/streamlink",
+     "footprint_tokens_cache_weighted": 16923
+    }
+   ]
+  },
+  {
+   "instance_id": "streamlink__streamlink-2160",
+   "tenant": "tenant-2",
+   "created_at": "2018-11-09 19:15:05+00:00",
+   "pull_request": "https://github.com/streamlink/streamlink/pull/2160",
+   "same_tenant": false,
+   "target_steps_already_explored": [
+    {
+     "step": 2,
+     "action": "view /workspace",
+     "footprint_tokens_cache_weighted": 3018
+    },
+    {
+     "step": 3,
+     "action": "view <repo>",
+     "footprint_tokens_cache_weighted": 6698
+    },
+    {
+     "step": 4,
+     "action": "view <repo>/README.md",
+     "footprint_tokens_cache_weighted": 7644
+    },
+    {
+     "step": 5,
+     "action": "view <repo>/src/streamlink",
+     "footprint_tokens_cache_weighted": 16923
+    }
+   ]
+  },
+  {
+   "instance_id": "streamlink__streamlink-2228",
+   "tenant": "tenant-3",
+   "created_at": "2019-01-03 12:48:51+00:00",
+   "pull_request": "https://github.com/streamlink/streamlink/pull/2228",
+   "same_tenant": false,
+   "target_steps_already_explored": [
+    {
+     "step": 2,
+     "action": "view /workspace",
+     "footprint_tokens_cache_weighted": 3018
+    },
+    {
+     "step": 3,
+     "action": "view <repo>",
+     "footprint_tokens_cache_weighted": 6698
+    },
+    {
+     "step": 4,
+     "action": "view <repo>/README.md",
+     "footprint_tokens_cache_weighted": 7644
+    },
+    {
+     "step": 7,
+     "action": "view <repo>/tests/plugins",
+     "footprint_tokens_cache_weighted": 12494
+    }
+   ]
+  }
+ ]
+}

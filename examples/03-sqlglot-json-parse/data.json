@@ -1,0 +1,1872 @@
+{
+ "_what": "Replay of recorded third-party agent runs; no memory system was run. Overlap is measured after the fact at path/query level (a ceiling). Tokens = characters/4; not dollars.",
+ "_sources": {
+  "tasks": "HF nebius/SWE-rebench, test split (CC BY 4.0), files rebench-test-0000{0,1}-of-00002.parquet",
+  "trajectories": "HF nebius/SWE-rebench-openhands-trajectories (CC BY 4.0), file trajectories.parquet; model Qwen3-Coder-480B-A35B-Instruct, OpenHands v0.54.0",
+  "replay": "per_task.parquet / per_task_attrib.json from scripts/per_task_replay.py; trajs.parquet / actions.parquet from the extraction step",
+  "github": "public GitHub API for tobymao/sqlglot (licence MIT, Copyright (c) 2023 Toby Mao)"
+ },
+ "definitions": {
+  "tenants": "per repo, tasks sorted by created_at and dealt round-robin to tenant-1..3; a task may use only tasks with strictly earlier created_at",
+  "own_history": "earlier tasks of the same tenant",
+  "pool": "earlier tasks of all 3 tenants",
+  "cross_tenant_increment": "pool minus own history",
+  "exploration": "file views/reads (F:path), directory listings (D:path), searches (S:exact normalized command), git log/show/blame (G:command); first touch within the task only",
+  "repeated": "every key of the action was explored by at least one task in the relevant history",
+  "tokens": "characters / 4",
+  "footprint_cache_weighted": "observation + issuing call; each counts 1.0 on the first LLM call that reads it and 0.1 on each later LLM call that carries it in context; the issuing call is also counted once (1.0) as model output",
+  "byte_identical": "same git blob id (file) or tree id (directory) at the earlier task's base commit and at this task's base commit"
+ },
+ "task": {
+  "instance_id": "tobymao__sqlglot-2443",
+  "repo": "tobymao/sqlglot",
+  "tenant": "tenant-3",
+  "created_at": "2023-10-23 09:19:22+00:00",
+  "created_at_is": "creation time of the upstream pull request",
+  "base_commit": "fdb166801144b721677d23c195e5bd3d35ee8841",
+  "repo_at_base_commit": "https://github.com/tobymao/sqlglot/tree/fdb166801144b721677d23c195e5bd3d35ee8841",
+  "pull_request": "https://github.com/tobymao/sqlglot/pull/2443",
+  "issue": "https://github.com/tobymao/sqlglot/issues/2442",
+  "version": "18.16",
+  "licence": "MIT License",
+  "gold_files": [
+   "sqlglot/dialects/redshift.py"
+  ],
+  "gold_lines_added": 1,
+  "gold_lines_removed": 0,
+  "fail_to_pass": [
+   "tests/dialects/test_redshift.py::TestRedshift::test_identity"
+  ],
+  "pass_to_pass_count": 7,
+  "issue_chars": 673,
+  "provenance": "rebench-test-00001-of-00002.parquet row 8870 (fields base_commit, created_at, patch, test_patch, problem_statement, license_name, FAIL_TO_PASS, PASS_TO_PASS)"
+ },
+ "agent_run": {
+  "trajectory_id": "chatcmpl-98873fbf910d2c75c859d7a413fd1875",
+  "tenant": "tenant-3",
+  "resolved": 1,
+  "exit_status": "submit",
+  "llm_calls": 63,
+  "tool_calls": 63,
+  "messages": 127,
+  "task_tokens_flat": 36125,
+  "task_tokens_cache_weighted": 177418,
+  "tool_call_footprints_cache_weighted": 148665,
+  "prompts_cache_weighted": 28753,
+  "model_patch_files": [
+   "comprehensive_test.py",
+   "issue.md",
+   "reproduce_issue.py",
+   "sqlglot/dialects/redshift.py",
+   "test_json_parse_fix.py"
+  ],
+  "agent_created_files": [
+   "reproduce_issue.py",
+   "comprehensive_test.py",
+   "test_json_parse_fix.py"
+  ],
+  "model_patch_files_present_before_first_action": [
+   "issue.md"
+  ],
+  "model_patch_files_note": "agent_created_files = targets of the agent's editor \"create\" calls; model_patch_files_present_before_first_action = untracked files already shown in the agent's first directory listing (step 2) and never created by it, so they appear in the submitted diff without being agent output",
+  "agent_source_change_equals_gold": true,
+  "exploration_first_touch_actions": 30,
+  "exploration_first_touch_tokens_cache_weighted": 105046,
+  "exploration_retouch_tokens_cache_weighted": 4661,
+  "readme_step4": {
+   "obs_tokens_flat": 4420,
+   "weight": 6.8,
+   "footprint_tokens_cache_weighted": 30343
+  },
+  "provenance": "trajs.parquet + actions.parquet (trajectory_id=chatcmpl-98873fbf910d2c75c859d7a413fd1875); per_task.parquet row tobymao__sqlglot-2443 (tot_tokens_flat, tot_tokens_cache)"
+ },
+ "steps": [
+  {
+   "step": 1,
+   "tool": "think",
+   "category": "think",
+   "action": "think (reasoning note to itself)",
+   "keys": [],
+   "obs_tokens_flat": 7,
+   "footprint_tokens_cache_weighted": 3611,
+   "failed": false
+  },
+  {
+   "step": 2,
+   "tool": "str_replace_editor",
+   "category": "explore-dir",
+   "action": "view (sandbox root)",
+   "keys": [
+    "D:EXT:(sandbox root)"
+   ],
+   "obs_tokens_flat": 215,
+   "footprint_tokens_cache_weighted": 1883,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 30,
+   "seen_by_other_tenant_earlier_tasks": 64,
+   "latest_own_source": "tobymao__sqlglot-2306",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": false,
+   "covered_by_1143": true
+  },
+  {
+   "step": 3,
+   "tool": "str_replace_editor",
+   "category": "explore-dir",
+   "action": "view .",
+   "keys": [
+    "D:."
+   ],
+   "obs_tokens_flat": 1106,
+   "footprint_tokens_cache_weighted": 7794,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 16,
+   "seen_by_other_tenant_earlier_tasks": 38,
+   "latest_own_source": "tobymao__sqlglot-2412",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": true,
+   "covered_by_1143": true
+  },
+  {
+   "step": 4,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view README.md",
+   "keys": [
+    "F:README.md"
+   ],
+   "obs_tokens_flat": 4420,
+   "footprint_tokens_cache_weighted": 30343,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 32,
+   "seen_by_other_tenant_earlier_tasks": 66,
+   "latest_own_source": "tobymao__sqlglot-2412",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": true,
+   "covered_by_1143": true
+  },
+  {
+   "step": 5,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view Makefile",
+   "keys": [
+    "F:Makefile"
+   ],
+   "obs_tokens_flat": 171,
+   "footprint_tokens_cache_weighted": 1442,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 11,
+   "seen_by_other_tenant_earlier_tasks": 22,
+   "latest_own_source": "tobymao__sqlglot-2412",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": true,
+   "covered_by_1143": true
+  },
+  {
+   "step": 6,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python3 -c \" import sqlglot sql = \\\"SELECT JSON_PARSE('[10001,10002,\\\"abc\\\"]');\\\" parsed = sqlglot.parse_on...",
+   "keys": [],
+   "obs_tokens_flat": 88,
+   "footprint_tokens_cache_weighted": 1296,
+   "failed": true
+  },
+  {
+   "step": 7,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python3 -c \" import sqlglot sql = 'SELECT JSON_PARSE(\\'[10001,10002,\\\\\\\"abc\\\\\\\"]\\');' parsed = sqlglot.pars...",
+   "keys": [],
+   "obs_tokens_flat": 90,
+   "footprint_tokens_cache_weighted": 1264,
+   "failed": false
+  },
+  {
+   "step": 8,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.test_transpile -k redshift -v",
+   "keys": [],
+   "obs_tokens_flat": 74,
+   "footprint_tokens_cache_weighted": 1293,
+   "failed": false
+  },
+  {
+   "step": 9,
+   "tool": "str_replace_editor",
+   "category": "explore-dir",
+   "action": "view tests/dialects",
+   "keys": [
+    "D:tests/dialects"
+   ],
+   "obs_tokens_flat": 390,
+   "footprint_tokens_cache_weighted": 2724,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 7,
+   "seen_by_other_tenant_earlier_tasks": 7,
+   "latest_own_source": "tobymao__sqlglot-2296",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 10,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.dialects.test_redshift -v",
+   "keys": [],
+   "obs_tokens_flat": 209,
+   "footprint_tokens_cache_weighted": 1670,
+   "failed": false
+  },
+  {
+   "step": 11,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "find . -name \"*.py\" -exec grep -l \"JSON_PARSE\\|PARSE_JSON\" {} \\;",
+   "keys": [
+    "S:find . -name \"*.py\" -exec grep -l \"JSON_PARSE\\|PARSE_JSON\" {} \\;"
+   ],
+   "obs_tokens_flat": 120,
+   "footprint_tokens_cache_weighted": 1307,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 12,
+   "tool": "str_replace_editor",
+   "category": "explore-dir",
+   "action": "view sqlglot/dialects",
+   "keys": [
+    "D:sqlglot/dialects"
+   ],
+   "obs_tokens_flat": 922,
+   "footprint_tokens_cache_weighted": 5789,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 19,
+   "seen_by_other_tenant_earlier_tasks": 26,
+   "latest_own_source": "tobymao__sqlglot-2412",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": true,
+   "covered_by_1143": true
+  },
+  {
+   "step": 13,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -n \"JSON_PARSE\\|PARSE_JSON\" sqlglot/expressions.py",
+   "keys": [
+    "S:grep -n \"JSON_PARSE\\|PARSE_JSON\" sqlglot/expressions.py"
+   ],
+   "obs_tokens_flat": 80,
+   "footprint_tokens_cache_weighted": 755,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 14,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -n \"JSON_PARSE\\|PARSE_JSON\" sqlglot/dialects/presto.py",
+   "keys": [
+    "S:grep -n \"JSON_PARSE\\|PARSE_JSON\" sqlglot/dialects/presto.py"
+   ],
+   "obs_tokens_flat": 64,
+   "footprint_tokens_cache_weighted": 592,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 15,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/expressions.py [4705, 4720]",
+   "keys": [
+    "F:sqlglot/expressions.py"
+   ],
+   "obs_tokens_flat": 177,
+   "footprint_tokens_cache_weighted": 1359,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 18,
+   "seen_by_other_tenant_earlier_tasks": 35,
+   "latest_own_source": "tobymao__sqlglot-2296",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 16,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/dialects/redshift.py",
+   "keys": [
+    "F:sqlglot/dialects/redshift.py"
+   ],
+   "obs_tokens_flat": 2486,
+   "footprint_tokens_cache_weighted": 14196,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 2,
+   "seen_by_other_tenant_earlier_tasks": 2,
+   "latest_own_source": "tobymao__sqlglot-2412",
+   "latest_other_tenant_source": "tobymao__sqlglot-790",
+   "covered_by_2412": true,
+   "covered_by_1143": true
+  },
+  {
+   "step": 17,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 5 -B 5 \"ParseJSON.*JSON_PARSE\" sqlglot/dialects/presto.py",
+   "keys": [
+    "S:grep -A 5 -B 5 \"ParseJSON.*JSON_PARSE\" sqlglot/dialects/presto.py"
+   ],
+   "obs_tokens_flat": 164,
+   "footprint_tokens_cache_weighted": 1220,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 18,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 2 -B 2 \"ParseJSON\" sqlglot/dialects/bigquery.py",
+   "keys": [
+    "S:grep -A 2 -B 2 \"ParseJSON\" sqlglot/dialects/bigquery.py"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 558,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 19,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 2 -B 2 \"PARSE_JSON\" sqlglot/dialects/bigquery.py",
+   "keys": [
+    "S:grep -A 2 -B 2 \"PARSE_JSON\" sqlglot/dialects/bigquery.py"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 462,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 20,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 2 -B 2 \"PARSE_JSON\" sqlglot/dialects/snowflake.py",
+   "keys": [
+    "S:grep -A 2 -B 2 \"PARSE_JSON\" sqlglot/dialects/snowflake.py"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 456,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 21,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -rn \"PARSE_JSON\" sqlglot/dialects/",
+   "keys": [
+    "S:grep -rn \"PARSE_JSON\" sqlglot/dialects/"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 464,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 22,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -rn \"ParseJSON\" sqlglot/dialects/",
+   "keys": [
+    "S:grep -rn \"ParseJSON\" sqlglot/dialects/"
+   ],
+   "obs_tokens_flat": 171,
+   "footprint_tokens_cache_weighted": 1016,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 23,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 10 -B 5 \"def.*parsejson\" sqlglot/generator.py",
+   "keys": [
+    "S:grep -A 10 -B 5 \"def.*parsejson\" sqlglot/generator.py"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 548,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 24,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 10 -B 5 \"ParseJSON\" sqlglot/generator.py",
+   "keys": [
+    "S:grep -A 10 -B 5 \"ParseJSON\" sqlglot/generator.py"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 410,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 25,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/generator.py [1, 50]",
+   "keys": [
+    "F:sqlglot/generator.py"
+   ],
+   "obs_tokens_flat": 684,
+   "footprint_tokens_cache_weighted": 3529,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 15,
+   "seen_by_other_tenant_earlier_tasks": 20,
+   "latest_own_source": "tobymao__sqlglot-2306",
+   "latest_other_tenant_source": "tobymao__sqlglot-2439",
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 26,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -n \"def.*function\" sqlglot/generator.py",
+   "keys": [
+    "S:grep -n \"def.*function\" sqlglot/generator.py"
+   ],
+   "obs_tokens_flat": 89,
+   "footprint_tokens_cache_weighted": 658,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 27,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/generator.py [2620, 2630]",
+   "keys": [
+    "F:sqlglot/generator.py"
+   ],
+   "obs_tokens_flat": 129,
+   "footprint_tokens_cache_weighted": 761,
+   "failed": false,
+   "first_touch": false
+  },
+  {
+   "step": 28,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/generator.py [2630, 2650]",
+   "keys": [
+    "F:sqlglot/generator.py"
+   ],
+   "obs_tokens_flat": 238,
+   "footprint_tokens_cache_weighted": 1228,
+   "failed": false,
+   "first_touch": false
+  },
+  {
+   "step": 29,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 10 -B 5 \"def sql_name\" sqlglot/expressions.py",
+   "keys": [
+    "S:grep -A 10 -B 5 \"def sql_name\" sqlglot/expressions.py"
+   ],
+   "obs_tokens_flat": 219,
+   "footprint_tokens_cache_weighted": 1162,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 30,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -A 10 -B 10 \"ParseJSON\" sqlglot/dialects/postgres.py",
+   "keys": [
+    "S:grep -A 10 -B 10 \"ParseJSON\" sqlglot/dialects/postgres.py"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 1122,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 31,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view tests/dialects/test_redshift.py",
+   "keys": [
+    "F:tests/dialects/test_redshift.py"
+   ],
+   "obs_tokens_flat": 4701,
+   "footprint_tokens_cache_weighted": 19837,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 1,
+   "seen_by_other_tenant_earlier_tasks": 1,
+   "latest_own_source": "tobymao__sqlglot-2412",
+   "latest_other_tenant_source": "tobymao__sqlglot-767",
+   "covered_by_2412": true,
+   "covered_by_1143": false
+  },
+  {
+   "step": 32,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -i -n \"json\" tests/dialects/test_redshift.py",
+   "keys": [
+    "S:grep -i -n \"json\" tests/dialects/test_redshift.py"
+   ],
+   "obs_tokens_flat": 128,
+   "footprint_tokens_cache_weighted": 742,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 33,
+   "tool": "think",
+   "category": "think",
+   "action": "think (reasoning note to itself)",
+   "keys": [],
+   "obs_tokens_flat": 7,
+   "footprint_tokens_cache_weighted": 1843,
+   "failed": false
+  },
+  {
+   "step": 34,
+   "tool": "str_replace_editor",
+   "category": "edit",
+   "action": "create reproduce_issue.py",
+   "keys": [
+    "E:reproduce_issue.py"
+   ],
+   "obs_tokens_flat": 21,
+   "footprint_tokens_cache_weighted": 3164,
+   "failed": false
+  },
+  {
+   "step": 35,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python reproduce_issue.py",
+   "keys": [],
+   "obs_tokens_flat": 311,
+   "footprint_tokens_cache_weighted": 1259,
+   "failed": false
+  },
+  {
+   "step": 36,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python3 -c \" import sqlglot sql = 'SELECT JSON_PARSE(\\\"[10001,10002]\\\");' try: parsed = sqlglot.parse_one(s...",
+   "keys": [],
+   "obs_tokens_flat": 62,
+   "footprint_tokens_cache_weighted": 1081,
+   "failed": false
+  },
+  {
+   "step": 37,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -rn \"JSON_PARSE\" sqlglot/dialects/bigquery.py",
+   "keys": [
+    "S:grep -rn \"JSON_PARSE\" sqlglot/dialects/bigquery.py"
+   ],
+   "obs_tokens_flat": 50,
+   "footprint_tokens_cache_weighted": 461,
+   "failed": true,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 38,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/dialects/bigquery.py [1, 50]",
+   "keys": [
+    "F:sqlglot/dialects/bigquery.py"
+   ],
+   "obs_tokens_flat": 446,
+   "footprint_tokens_cache_weighted": 2390,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 4,
+   "seen_by_other_tenant_earlier_tasks": 4,
+   "latest_own_source": "tobymao__sqlglot-2260",
+   "latest_other_tenant_source": "tobymao__sqlglot-2305",
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 39,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -C 3 -i parse.*json sqlglot/dialects/bigquery.py",
+   "keys": [
+    "S:grep -C 3 -i parse.*json sqlglot/dialects/bigquery.py"
+   ],
+   "obs_tokens_flat": 121,
+   "footprint_tokens_cache_weighted": 604,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 40,
+   "tool": "think",
+   "category": "think",
+   "action": "think (reasoning note to itself)",
+   "keys": [],
+   "obs_tokens_flat": 7,
+   "footprint_tokens_cache_weighted": 2116,
+   "failed": false
+  },
+  {
+   "step": 41,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/dialects/redshift.py [160, 190]",
+   "keys": [
+    "F:sqlglot/dialects/redshift.py"
+   ],
+   "obs_tokens_flat": 495,
+   "footprint_tokens_cache_weighted": 1818,
+   "failed": false,
+   "first_touch": false
+  },
+  {
+   "step": 42,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view sqlglot/dialects/redshift.py [5, 15]",
+   "keys": [
+    "F:sqlglot/dialects/redshift.py"
+   ],
+   "obs_tokens_flat": 130,
+   "footprint_tokens_cache_weighted": 854,
+   "failed": false,
+   "first_touch": false
+  },
+  {
+   "step": 43,
+   "tool": "str_replace_editor",
+   "category": "edit",
+   "action": "str_replace sqlglot/dialects/redshift.py",
+   "keys": [
+    "E:sqlglot/dialects/redshift.py"
+   ],
+   "obs_tokens_flat": 548,
+   "footprint_tokens_cache_weighted": 4707,
+   "failed": false
+  },
+  {
+   "step": 44,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python reproduce_issue.py",
+   "keys": [],
+   "obs_tokens_flat": 303,
+   "footprint_tokens_cache_weighted": 1286,
+   "failed": false
+  },
+  {
+   "step": 45,
+   "tool": "str_replace_editor",
+   "category": "edit",
+   "action": "create comprehensive_test.py",
+   "keys": [
+    "E:comprehensive_test.py"
+   ],
+   "obs_tokens_flat": 22,
+   "footprint_tokens_cache_weighted": 4270,
+   "failed": false
+  },
+  {
+   "step": 46,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python comprehensive_test.py",
+   "keys": [],
+   "obs_tokens_flat": 171,
+   "footprint_tokens_cache_weighted": 531,
+   "failed": false
+  },
+  {
+   "step": 47,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.dialects.test_redshift -v",
+   "keys": [],
+   "obs_tokens_flat": 209,
+   "footprint_tokens_cache_weighted": 732,
+   "failed": false
+  },
+  {
+   "step": 48,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.test_transpile -k redshift -v",
+   "keys": [],
+   "obs_tokens_flat": 74,
+   "footprint_tokens_cache_weighted": 406,
+   "failed": false
+  },
+  {
+   "step": 49,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -c \" import sqlglot # Test some basic parsing to make sure nothing is broken test_cases = [ 'SELECT ...",
+   "keys": [],
+   "obs_tokens_flat": 236,
+   "footprint_tokens_cache_weighted": 1059,
+   "failed": false
+  },
+  {
+   "step": 50,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python3 -c \" import sqlglot sql = \\\"SELECT JSON_PARSE('[10001,10002,\\\\\\\"abc\\\\\\\"]');\\\" parsed = sqlglot.pars...",
+   "keys": [],
+   "obs_tokens_flat": 72,
+   "footprint_tokens_cache_weighted": 791,
+   "failed": false
+  },
+  {
+   "step": 51,
+   "tool": "task_tracker",
+   "category": "task_tracker",
+   "action": "task_tracker",
+   "keys": [],
+   "obs_tokens_flat": 44,
+   "footprint_tokens_cache_weighted": 195,
+   "failed": false
+  },
+  {
+   "step": 52,
+   "tool": "str_replace_editor",
+   "category": "explore-read",
+   "action": "view issue.md",
+   "keys": [
+    "F:issue.md"
+   ],
+   "obs_tokens_flat": 220,
+   "footprint_tokens_cache_weighted": 564,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 53,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python3 -c \" import sqlglot sql = \\\"SELECT JSON_PARSE('[10001,10002]\\\\\\\"abc\\\\\\\"]');\\\" parsed = sqlglot.pars...",
+   "keys": [],
+   "obs_tokens_flat": 67,
+   "footprint_tokens_cache_weighted": 554,
+   "failed": false
+  },
+  {
+   "step": 54,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.test_parser -k ParseJSON -v",
+   "keys": [],
+   "obs_tokens_flat": 74,
+   "footprint_tokens_cache_weighted": 259,
+   "failed": false
+  },
+  {
+   "step": 55,
+   "tool": "execute_bash",
+   "category": "explore-search",
+   "action": "grep -r \"ParseJSON\\|JSON_PARSE\\|PARSE_JSON\" tests/ --include=\"*.py\" | head -10",
+   "keys": [
+    "S:grep -r \"ParseJSON\\|JSON_PARSE\\|PARSE_JSON\" tests/ --include=\"*.py\" | head -10"
+   ],
+   "obs_tokens_flat": 305,
+   "footprint_tokens_cache_weighted": 659,
+   "failed": false,
+   "first_touch": true,
+   "seen_by_own_earlier_tasks": 0,
+   "seen_by_other_tenant_earlier_tasks": 0,
+   "latest_own_source": null,
+   "latest_other_tenant_source": null,
+   "covered_by_2412": false,
+   "covered_by_1143": false
+  },
+  {
+   "step": 56,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.test_parser.TestParser -v",
+   "keys": [],
+   "obs_tokens_flat": 697,
+   "footprint_tokens_cache_weighted": 1271,
+   "failed": false
+  },
+  {
+   "step": 57,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python3 -c \" import sqlglot # Test the specific case from test_parser.py result = sqlglot.parse_one(\\\"\\\"\\\"J...",
+   "keys": [],
+   "obs_tokens_flat": 72,
+   "footprint_tokens_cache_weighted": 460,
+   "failed": false
+  },
+  {
+   "step": 58,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.dialects.test_presto.TestPresto -k json -v",
+   "keys": [],
+   "obs_tokens_flat": 88,
+   "footprint_tokens_cache_weighted": 264,
+   "failed": false
+  },
+  {
+   "step": 59,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python3 -c \" import sqlglot # Test different dialects to make sure the behavior matches expectations test_s...",
+   "keys": [],
+   "obs_tokens_flat": 391,
+   "footprint_tokens_cache_weighted": 1161,
+   "failed": false
+  },
+  {
+   "step": 60,
+   "tool": "str_replace_editor",
+   "category": "edit",
+   "action": "create test_json_parse_fix.py",
+   "keys": [
+    "E:test_json_parse_fix.py"
+   ],
+   "obs_tokens_flat": 22,
+   "footprint_tokens_cache_weighted": 1220,
+   "failed": false
+  },
+  {
+   "step": 61,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python test_json_parse_fix.py",
+   "keys": [],
+   "obs_tokens_flat": 58,
+   "footprint_tokens_cache_weighted": 115,
+   "failed": false
+  },
+  {
+   "step": 62,
+   "tool": "execute_bash",
+   "category": "run",
+   "action": "python -m unittest tests.test_generator -v",
+   "keys": [],
+   "obs_tokens_flat": 126,
+   "footprint_tokens_cache_weighted": 241,
+   "failed": false
+  },
+  {
+   "step": 63,
+   "tool": "finish",
+   "category": "finish",
+   "action": "finish (submit)",
+   "keys": [],
+   "obs_tokens_flat": 0,
+   "footprint_tokens_cache_weighted": 842,
+   "failed": false
+  }
+ ],
+ "history": {
+  "own_earlier_tasks": 32,
+  "pool_earlier_tasks": 98,
+  "provenance": "per_task.parquet fields own_hist, pool_hist; recomputed here from created_at"
+ },
+ "replay": {
+  "first_touch_exploration_actions": 30,
+  "repeated_from_own_history_actions": 11,
+  "repeated_from_pool_actions": 11,
+  "removable_own_history_tokens_cache_weighted": 91286,
+  "removable_pool_tokens_cache_weighted": 91286,
+  "cross_tenant_increment_tokens_cache_weighted": 0,
+  "own_share": 0.5145,
+  "pool_share": 0.5145,
+  "increment_share": 0.0,
+  "removable_own_obs_tokens_flat": 15716,
+  "removable_pool_obs_tokens_flat": 15716,
+  "actions_seen_by_other_tenants_but_not_own": 0,
+  "searches_first_touch": 18,
+  "searches_repeated_from_pool": 0,
+  "removable_own_from_2412_tokens_cache_weighted": 79401,
+  "removable_own_not_from_2412_tokens_cache_weighted": 11885,
+  "provenance": "per_task.parquet row tobymao__sqlglot-2443 (removable_self_tok, removable_pool_tok, incr_tok, self_share, pool_share, incr_share, removable_*_obs_flat_tok, n_first_expl, n_rep_self, n_rep_pool); per-step split recomputed here from actions.parquet and asserted equal"
+ },
+ "earlier_tasks": [
+  {
+   "instance_id": "tobymao__sqlglot-2412",
+   "tenant": "tenant-3",
+   "created_at": "2023-10-15 15:04:30+00:00",
+   "base_commit": "f2ce11ffa7bb6c4eec5e9ad1f8dfe78112e00d58",
+   "days_before_target": 7.76,
+   "pull_request": "https://github.com/tobymao/sqlglot/pull/2412",
+   "pull_request_title": "Fix(redshift): add a missing retreat in the group by parser",
+   "issue": "https://github.com/tobymao/sqlglot/issues/2411",
+   "issue_title": "Redshift Dialect - GROUP BY clause causes parsing error although query is valid",
+   "gold_files": [
+    "sqlglot/parser.py"
+   ],
+   "gold_lines_added": 3,
+   "gold_lines_removed": 0,
+   "trajectory_id": "chatcmpl-0d54e25a2a739d51306048474118081c",
+   "resolved": 1,
+   "llm_calls": 97,
+   "tokens_cache_weighted": 421154,
+   "tokens_flat": 70864,
+   "agent_edited_existing_files": [
+    "sqlglot/parser.py",
+    "tests/dialects/test_redshift.py"
+   ],
+   "agent_created_scratch_files": 10,
+   "model_patch_files_non_scratch": [
+    "sqlglot/parser.py",
+    "tests/dialects/test_redshift.py"
+   ],
+   "explored": {
+    "viewed": [
+     {
+      "key": "F:README.md",
+      "step": 3,
+      "obs_tokens_flat": 4420
+     },
+     {
+      "key": "F:Makefile",
+      "step": 4,
+      "obs_tokens_flat": 171
+     },
+     {
+      "key": "F:sqlglot/dialects/redshift.py",
+      "step": 8,
+      "obs_tokens_flat": 2447
+     },
+     {
+      "key": "F:sqlglot/dialects/postgres.py",
+      "step": 9,
+      "obs_tokens_flat": 947
+     },
+     {
+      "key": "F:sqlglot/parser.py",
+      "step": 14,
+      "obs_tokens_flat": 986
+     },
+     {
+      "key": "F:tests/dialects/test_redshift.py",
+      "step": 26,
+      "obs_tokens_flat": 4713
+     },
+     {
+      "key": "F:sqlglot/__init__.py",
+      "step": 54,
+      "obs_tokens_flat": 320
+     },
+     {
+      "key": "F:sqlglot/dialects/dialect.py",
+      "step": 57,
+      "obs_tokens_flat": 369
+     }
+    ],
+    "listed": [
+     {
+      "key": "D:.",
+      "step": 2,
+      "obs_tokens_flat": 1095
+     },
+     {
+      "key": "D:sqlglot/dialects",
+      "step": 7,
+      "obs_tokens_flat": 922
+     }
+    ],
+    "searched": [
+     {
+      "key": "S:grep -n \"CREATE.*VIEW\\|Create.*View\" sqlglot/dialects/postgres.py",
+      "step": 10,
+      "obs_tokens_flat": 50
+     },
+     {
+      "key": "S:grep -rn \"CREATE.*VIEW\\|Create.*View\" sqlglot/ --include=\"*.py\" | head -10",
+      "step": 11,
+      "obs_tokens_flat": 131
+     },
+     {
+      "key": "S:grep -rn \"CREATE OR REPLACE\" sqlglot/ --include=\"*.py\" | head -10",
+      "step": 12,
+      "obs_tokens_flat": 76
+     },
+     {
+      "key": "S:grep -rn \"_parse_create\" sqlglot/parser.py | head -5",
+      "step": 13,
+      "obs_tokens_flat": 129
+     },
+     {
+      "key": "S:grep -n \"_parse_ddl_select\" sqlglot/parser.py",
+      "step": 16,
+      "obs_tokens_flat": 94
+     },
+     {
+      "key": "S:grep -n \"def _parse_select\" sqlglot/parser.py",
+      "step": 18,
+      "obs_tokens_flat": 81
+     },
+     {
+      "key": "S:grep -n \"def _parse_query_modifiers\" sqlglot/parser.py",
+      "step": 21,
+      "obs_tokens_flat": 59
+     },
+     {
+      "key": "S:grep -n \"QUERY_MODIFIER_PARSERS\" sqlglot/parser.py",
+      "step": 23,
+      "obs_tokens_flat": 101
+     },
+     {
+      "key": "S:find tests/ -name \"*.py\" -exec grep -l \"redshift\\|Redshift\" {} \\;",
+      "step": 25,
+      "obs_tokens_flat": 156
+     },
+     {
+      "key": "S:grep -n \"CREATE.*VIEW\\|view\" tests/dialects/test_redshift.py",
+      "step": 27,
+      "obs_tokens_flat": 102
+     },
+     {
+      "key": "S:grep -n \"NO.*:\" sqlglot/dialects/postgres.py",
+      "step": 40,
+      "obs_tokens_flat": 64
+     },
+     {
+      "key": "S:grep -rn \"NO.*TokenType\" sqlglot/tokens.py",
+      "step": 41,
+      "obs_tokens_flat": 79
+     },
+     {
+      "key": "S:grep -rn '\"NO\"' sqlglot/tokens.py",
+      "step": 42,
+      "obs_tokens_flat": 50
+     },
+     {
+      "key": "S:grep -A 5 -B 5 \"WITH.*TokenType\" sqlglot/tokens.py",
+      "step": 43,
+      "obs_tokens_flat": 248
+     },
+     {
+      "key": "S:grep -n \"def _match_text_seq\" sqlglot/parser.py",
+      "step": 46,
+      "obs_tokens_flat": 64
+     },
+     {
+      "key": "S:grep -A 10 \"def parse\" sqlglot/__init__.py",
+      "step": 53,
+      "obs_tokens_flat": 275
+     },
+     {
+      "key": "S:grep -n \"def parse\" sqlglot/dialects/dialect.py",
+      "step": 56,
+      "obs_tokens_flat": 120
+     },
+     {
+      "key": "S:grep -rn \"AT.*TIME.*ZONE\" sqlglot/ --include=\"*.py\"",
+      "step": 60,
+      "obs_tokens_flat": 180
+     },
+     {
+      "key": "S:grep -n \"_parse_at_time_zone\" sqlglot/parser.py",
+      "step": 62,
+      "obs_tokens_flat": 107
+     },
+     {
+      "key": "S:grep -n \"def.*create\" tests/test_parser.py",
+      "step": 83,
+      "obs_tokens_flat": 62
+     }
+    ]
+   },
+   "overlap_with_target": {
+    "steps": [
+     3,
+     4,
+     5,
+     12,
+     16,
+     31
+    ],
+    "keys": [
+     "D:.",
+     "D:sqlglot/dialects",
+     "F:Makefile",
+     "F:README.md",
+     "F:sqlglot/dialects/redshift.py",
+     "F:tests/dialects/test_redshift.py"
+    ],
+    "tokens_cache_weighted": 79401,
+    "share_of_task": 0.4475,
+    "obs_tokens_flat": 13806
+   },
+   "provenance": {
+    "task": "rebench-test-00001-of-00002.parquet row 8866",
+    "trajectory": "trajectories.parquet / trajs.parquet / actions.parquet, trajectory_id=chatcmpl-0d54e25a2a739d51306048474118081c",
+    "pull_request_title_and_issue": "GitHub pulls API (title; issue number parsed from \"Fixes #N\" in the PR body); issue_title is the first line of the SWE-rebench problem_statement"
+   }
+  },
+  {
+   "instance_id": "tobymao__sqlglot-1143",
+   "tenant": "tenant-3",
+   "created_at": "2023-02-09 22:41:38+00:00",
+   "base_commit": "bb01c7efcfa85384fe7b9e02b33f5bc8fe54af95",
+   "days_before_target": 255.44,
+   "pull_request": "https://github.com/tobymao/sqlglot/pull/1143",
+   "pull_request_title": "Add COPY as a command",
+   "issue": "https://github.com/tobymao/sqlglot/issues/1141",
+   "issue_title": "snowflake: transpiling \"COPY INTO\" raises ParseError",
+   "gold_files": [
+    "sqlglot/dialects/redshift.py",
+    "sqlglot/tokens.py"
+   ],
+   "gold_lines_added": 1,
+   "gold_lines_removed": 1,
+   "trajectory_id": "chatcmpl-35f84b1cce52d989c43407acc407525d",
+   "resolved": 1,
+   "llm_calls": 54,
+   "tokens_cache_weighted": 194532,
+   "tokens_flat": 46938,
+   "agent_edited_existing_files": [
+    "sqlglot/dialects/snowflake.py",
+    "tests/dialects/test_snowflake.py"
+   ],
+   "agent_created_scratch_files": 3,
+   "model_patch_files_non_scratch": [
+    "sqlglot/dialects/snowflake.py",
+    "tests/dialects/test_snowflake.py"
+   ],
+   "explored": {
+    "viewed": [
+     {
+      "key": "F:README.md",
+      "step": 4,
+      "obs_tokens_flat": 4190
+     },
+     {
+      "key": "F:Makefile",
+      "step": 5,
+      "obs_tokens_flat": 153
+     },
+     {
+      "key": "F:sqlglot/dialects/snowflake.py",
+      "step": 11,
+      "obs_tokens_flat": 3456
+     },
+     {
+      "key": "F:sqlglot/dialects/redshift.py",
+      "step": 12,
+      "obs_tokens_flat": 1639
+     },
+     {
+      "key": "F:sqlglot/tokens.py",
+      "step": 17,
+      "obs_tokens_flat": 684
+     },
+     {
+      "key": "F:tests/dialects/test_snowflake.py",
+      "step": 20,
+      "obs_tokens_flat": 594
+     }
+    ],
+    "listed": [
+     {
+      "key": "D:EXT:(sandbox root)",
+      "step": 2,
+      "obs_tokens_flat": 188
+     },
+     {
+      "key": "D:.",
+      "step": 3,
+      "obs_tokens_flat": 1024
+     },
+     {
+      "key": "D:sqlglot/dialects",
+      "step": 9,
+      "obs_tokens_flat": 837
+     }
+    ],
+    "searched": [
+     {
+      "key": "S:grep -r -i \"copy\" --include=\"*.py\" .",
+      "step": 10,
+      "obs_tokens_flat": 4846
+     },
+     {
+      "key": "S:grep -r \"COMMAND\" --include=\"*.py\" . | head -10",
+      "step": 13,
+      "obs_tokens_flat": 200
+     },
+     {
+      "key": "S:grep -r -A5 -B5 \"_parse_command\\|COMMAND\" --include=\"*.py\" sqlglot/parser.py",
+      "step": 14,
+      "obs_tokens_flat": 412
+     },
+     {
+      "key": "S:grep -r -A10 -B5 \"class Command\" --include=\"*.py\" .",
+      "step": 15,
+      "obs_tokens_flat": 246
+     },
+     {
+      "key": "S:grep -r -A20 \"COMMANDS\\s*=\" --include=\"*.py\" .",
+      "step": 16,
+      "obs_tokens_flat": 655
+     },
+     {
+      "key": "S:grep -n -A30 \"COMMANDS\\s*=\\s*{\" sqlglot/tokens.py",
+      "step": 18,
+      "obs_tokens_flat": 251
+     },
+     {
+      "key": "S:grep -r -i \"COPY\" --include=\"*.py\" sqlglot/dialects/snowflake.py",
+      "step": 19,
+      "obs_tokens_flat": 50
+     },
+     {
+      "key": "S:grep -n -A5 -B5 \"PUT\\|COMMAND\" tests/dialects/test_snowflake.py",
+      "step": 21,
+      "obs_tokens_flat": 166
+     },
+     {
+      "key": "S:grep -r \"COPY.*COMMAND\" --include=\"*.py\" .",
+      "step": 29,
+      "obs_tokens_flat": 67
+     }
+    ]
+   },
+   "overlap_with_target": {
+    "steps": [
+     2,
+     3,
+     4,
+     5,
+     12,
+     16
+    ],
+    "keys": [
+     "D:.",
+     "D:EXT:(sandbox root)",
+     "D:sqlglot/dialects",
+     "F:Makefile",
+     "F:README.md",
+     "F:sqlglot/dialects/redshift.py"
+    ],
+    "tokens_cache_weighted": 61447,
+    "share_of_task": 0.3463,
+    "obs_tokens_flat": 9320
+   },
+   "provenance": {
+    "task": "rebench-test-00001-of-00002.parquet row 8734",
+    "trajectory": "trajectories.parquet / trajs.parquet / actions.parquet, trajectory_id=chatcmpl-35f84b1cce52d989c43407acc407525d",
+    "pull_request_title_and_issue": "GitHub pulls API (title; issue number parsed from \"Fixes #N\" in the PR body); issue_title is the first line of the SWE-rebench problem_statement"
+   }
+  }
+ ],
+ "gold_file_history": {
+  "entries": [
+   {
+    "file": "sqlglot/dialects/redshift.py",
+    "instance_id": "tobymao__sqlglot-1143",
+    "tenant": "tenant-3",
+    "created_at": "2023-02-09 22:41:38+00:00",
+    "history": "own",
+    "trajectory_viewed_file": true
+   },
+   {
+    "file": "sqlglot/dialects/redshift.py",
+    "instance_id": "tobymao__sqlglot-1640",
+    "tenant": "tenant-3",
+    "created_at": "2023-05-17 11:50:13+00:00",
+    "history": "own",
+    "trajectory_viewed_file": false
+   },
+   {
+    "file": "sqlglot/dialects/redshift.py",
+    "instance_id": "tobymao__sqlglot-767",
+    "tenant": "tenant-2",
+    "created_at": "2022-11-25 15:03:40+00:00",
+    "history": "other_tenant",
+    "trajectory_viewed_file": true
+   },
+   {
+    "file": "sqlglot/dialects/redshift.py",
+    "instance_id": "tobymao__sqlglot-790",
+    "tenant": "tenant-2",
+    "created_at": "2022-12-03 19:16:07+00:00",
+    "history": "other_tenant",
+    "trajectory_viewed_file": true
+   }
+  ],
+  "provenance": "per_task_attrib.json[tobymao__sqlglot-2443] gold_edited_by_self / gold_edited_by_other / gold_viewed_by_*_traj"
+ },
+ "staleness": {
+  "tobymao__sqlglot-2412": {
+   "commits_between": 39,
+   "files_changed_between": 80,
+   "compare_status": "ahead",
+   "compare_url": "https://github.com/tobymao/sqlglot/compare/f2ce11ffa7bb6c4eec5e9ad1f8dfe78112e00d58...fdb166801144b721677d23c195e5bd3d35ee8841",
+   "paths": [
+    {
+     "path": ".",
+     "cat": "explore-dir",
+     "fp_tok": 7794,
+     "obs_tok": 1106,
+     "same": false,
+     "at_earlier": "1c9f82ace5",
+     "at_later": "3fc3e3e3db",
+     "lines_changed": 0
+    },
+    {
+     "path": "README.md",
+     "cat": "explore-read",
+     "fp_tok": 30343,
+     "obs_tok": 4420,
+     "same": true,
+     "at_earlier": "6fa89d50f5",
+     "at_later": "6fa89d50f5",
+     "lines_changed": 0
+    },
+    {
+     "path": "Makefile",
+     "cat": "explore-read",
+     "fp_tok": 1442,
+     "obs_tok": 171,
+     "same": true,
+     "at_earlier": "dcb02ad118",
+     "at_later": "dcb02ad118",
+     "lines_changed": 0
+    },
+    {
+     "path": "sqlglot/dialects",
+     "cat": "explore-dir",
+     "fp_tok": 5789,
+     "obs_tok": 922,
+     "same": false,
+     "at_earlier": "46a08031fb",
+     "at_later": "18ee5e735d",
+     "lines_changed": 0
+    },
+    {
+     "path": "sqlglot/dialects/redshift.py",
+     "cat": "explore-read",
+     "fp_tok": 14196,
+     "obs_tok": 2486,
+     "same": false,
+     "at_earlier": "04e78a5b9c",
+     "at_later": "51b91150aa",
+     "lines_changed": null
+    },
+    {
+     "path": "tests/dialects/test_redshift.py",
+     "cat": "explore-read",
+     "fp_tok": 19837,
+     "obs_tok": 4701,
+     "same": false,
+     "at_earlier": "f182febf49",
+     "at_later": "bbe2de23db",
+     "lines_changed": null
+    }
+   ],
+   "overlap_tokens": 79401,
+   "overlap_tokens_note": "repo paths only; the sandbox-root listing is outside the repo and not checkable",
+   "fresh_tokens": 31785,
+   "fresh_share": 0.4003,
+   "file_diffs_between_base_commits": {
+    "sqlglot/dialects/redshift.py": {
+     "lines_at_earlier": 214,
+     "lines_at_target": 216,
+     "lines_added": 2,
+     "lines_removed": 0,
+     "changed_lines_mentioning_json": 0,
+     "added_lines": [
+      "generatedasidentitycolumnconstraint_sql,",
+      "exp.GeneratedAsIdentityColumnConstraint: generatedasidentitycolumnconstraint_sql,"
+     ]
+    },
+    "tests/dialects/test_redshift.py": {
+     "lines_at_earlier": 439,
+     "lines_at_target": 448,
+     "lines_added": 17,
+     "lines_removed": 8,
+     "changed_lines_mentioning_json": 0,
+     "added_lines": null
+    }
+   },
+   "file_diffs_method": "Python difflib.unified_diff with n=0 on the two file versions; for large rewrites its +/- split can differ from git diff (same net line change)",
+   "provenance": "stale_tobymao__sqlglot-2443_own.json (scripts/staleness.py; GitHub contents + compare API); file diffs: GitHub contents API at both base commits, difflib"
+  },
+  "tobymao__sqlglot-1143": {
+   "commits_between": 1330,
+   "files_changed_between": 232,
+   "compare_status": "ahead",
+   "compare_url": "https://github.com/tobymao/sqlglot/compare/bb01c7efcfa85384fe7b9e02b33f5bc8fe54af95...fdb166801144b721677d23c195e5bd3d35ee8841",
+   "paths": [
+    {
+     "path": ".",
+     "cat": "explore-dir",
+     "fp_tok": 7794,
+     "obs_tok": 1106,
+     "same": false,
+     "at_earlier": "5f05d8f354",
+     "at_later": "3fc3e3e3db",
+     "lines_changed": 0
+    },
+    {
+     "path": "README.md",
+     "cat": "explore-read",
+     "fp_tok": 30343,
+     "obs_tok": 4420,
+     "same": false,
+     "at_earlier": "08c7f362de",
+     "at_later": "6fa89d50f5",
+     "lines_changed": 48
+    },
+    {
+     "path": "Makefile",
+     "cat": "explore-read",
+     "fp_tok": 1442,
+     "obs_tok": 171,
+     "same": false,
+     "at_earlier": "134637b633",
+     "at_later": "dcb02ad118",
+     "lines_changed": 5
+    },
+    {
+     "path": "sqlglot/dialects",
+     "cat": "explore-dir",
+     "fp_tok": 5789,
+     "obs_tok": 922,
+     "same": false,
+     "at_earlier": "15b5b75ea6",
+     "at_later": "18ee5e735d",
+     "lines_changed": 0
+    },
+    {
+     "path": "sqlglot/dialects/redshift.py",
+     "cat": "explore-read",
+     "fp_tok": 14196,
+     "obs_tok": 2486,
+     "same": false,
+     "at_earlier": "0a6683f6d5",
+     "at_later": "51b91150aa",
+     "lines_changed": null
+    }
+   ],
+   "overlap_tokens": 59564,
+   "overlap_tokens_note": "repo paths only; the sandbox-root listing is outside the repo and not checkable",
+   "fresh_tokens": 0,
+   "fresh_share": 0.0,
+   "file_diffs_between_base_commits": {
+    "sqlglot/dialects/redshift.py": {
+     "lines_at_earlier": 130,
+     "lines_at_target": 216,
+     "lines_added": 154,
+     "lines_removed": 68,
+     "changed_lines_mentioning_json": 3,
+     "added_lines": null
+    },
+    "tests/dialects/test_redshift.py": {
+     "lines_at_earlier": 184,
+     "lines_at_target": 448,
+     "lines_added": 278,
+     "lines_removed": 14,
+     "changed_lines_mentioning_json": 2,
+     "added_lines": null
+    }
+   },
+   "file_diffs_method": "Python difflib.unified_diff with n=0 on the two file versions; for large rewrites its +/- split can differ from git diff (same net line change)",
+   "provenance": "stale_tobymao__sqlglot-2443_own_1143.json (scripts/staleness.py; GitHub contents + compare API); file diffs: GitHub contents API at both base commits, difflib"
+  }
+ },
+ "freshest_copy": {
+  "rows": [
+   {
+    "step": 2,
+    "key": "D:EXT:(sandbox root)",
+    "footprint_tokens_cache_weighted": 1883,
+    "latest_own": "tobymao__sqlglot-2306",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-09-23 15:46:39+00:00",
+    "latest_own_byte_identical": null,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": null,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": null
+   },
+   {
+    "step": 3,
+    "key": "D:.",
+    "footprint_tokens_cache_weighted": 7794,
+    "latest_own": "tobymao__sqlglot-2412",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-10-15 15:04:30+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": false,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": false
+   },
+   {
+    "step": 4,
+    "key": "F:README.md",
+    "footprint_tokens_cache_weighted": 30343,
+    "latest_own": "tobymao__sqlglot-2412",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-10-15 15:04:30+00:00",
+    "latest_own_byte_identical": true,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": true,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": true
+   },
+   {
+    "step": 5,
+    "key": "F:Makefile",
+    "footprint_tokens_cache_weighted": 1442,
+    "latest_own": "tobymao__sqlglot-2412",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-10-15 15:04:30+00:00",
+    "latest_own_byte_identical": true,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": true,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": true
+   },
+   {
+    "step": 9,
+    "key": "D:tests/dialects",
+    "footprint_tokens_cache_weighted": 2724,
+    "latest_own": "tobymao__sqlglot-2296",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-09-22 16:37:55+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": false,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": false
+   },
+   {
+    "step": 12,
+    "key": "D:sqlglot/dialects",
+    "footprint_tokens_cache_weighted": 5789,
+    "latest_own": "tobymao__sqlglot-2412",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-10-15 15:04:30+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": false,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": false
+   },
+   {
+    "step": 15,
+    "key": "F:sqlglot/expressions.py",
+    "footprint_tokens_cache_weighted": 1359,
+    "latest_own": "tobymao__sqlglot-2296",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-09-22 16:37:55+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": true,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": true
+   },
+   {
+    "step": 16,
+    "key": "F:sqlglot/dialects/redshift.py",
+    "footprint_tokens_cache_weighted": 14196,
+    "latest_own": "tobymao__sqlglot-2412",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-10-15 15:04:30+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-790",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2022-12-03 19:16:07+00:00",
+    "latest_other_tenant_byte_identical": false,
+    "freshest_in_pool_is": "own",
+    "freshest_in_pool_byte_identical": false
+   },
+   {
+    "step": 25,
+    "key": "F:sqlglot/generator.py",
+    "footprint_tokens_cache_weighted": 3529,
+    "latest_own": "tobymao__sqlglot-2306",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-09-23 15:46:39+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-2439",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-10-22 13:26:39+00:00",
+    "latest_other_tenant_byte_identical": true,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": true
+   },
+   {
+    "step": 31,
+    "key": "F:tests/dialects/test_redshift.py",
+    "footprint_tokens_cache_weighted": 19837,
+    "latest_own": "tobymao__sqlglot-2412",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-10-15 15:04:30+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-767",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2022-11-25 15:03:40+00:00",
+    "latest_other_tenant_byte_identical": false,
+    "freshest_in_pool_is": "own",
+    "freshest_in_pool_byte_identical": false
+   },
+   {
+    "step": 38,
+    "key": "F:sqlglot/dialects/bigquery.py",
+    "footprint_tokens_cache_weighted": 2390,
+    "latest_own": "tobymao__sqlglot-2260",
+    "latest_own_tenant": "tenant-3",
+    "latest_own_created_at": "2023-09-19 14:29:12+00:00",
+    "latest_own_byte_identical": false,
+    "latest_other_tenant": "tobymao__sqlglot-2305",
+    "latest_other_tenant_tenant": "tenant-2",
+    "latest_other_tenant_created_at": "2023-09-23 12:53:51+00:00",
+    "latest_other_tenant_byte_identical": false,
+    "freshest_in_pool_is": "other_tenant",
+    "freshest_in_pool_byte_identical": false
+   }
+  ],
+  "sources": {
+   "tobymao__sqlglot-2260": {
+    "tenant": "tenant-3",
+    "created_at": "2023-09-19 14:29:12+00:00",
+    "hours_before_target": 810.8,
+    "base_commit": "0830d81de7342f15dc69e16aea64005d3cafcf09",
+    "commits_behind_target": 167,
+    "compare_status": "ahead"
+   },
+   "tobymao__sqlglot-2296": {
+    "tenant": "tenant-3",
+    "created_at": "2023-09-22 16:37:55+00:00",
+    "hours_before_target": 736.7,
+    "base_commit": "44f732d56eafb93880790955862bac454edf800f",
+    "commits_behind_target": 142,
+    "compare_status": "ahead"
+   },
+   "tobymao__sqlglot-2305": {
+    "tenant": "tenant-2",
+    "created_at": "2023-09-23 12:53:51+00:00",
+    "hours_before_target": 716.4,
+    "base_commit": "e1cbff4a180bea06ea22f41f26d0021b7b9df28f",
+    "commits_behind_target": 134,
+    "compare_status": "ahead"
+   },
+   "tobymao__sqlglot-2306": {
+    "tenant": "tenant-3",
+    "created_at": "2023-09-23 15:46:39+00:00",
+    "hours_before_target": 713.5,
+    "base_commit": "8ed0a810ef4ec36ca648ad55b7a873ce04b8da30",
+    "commits_behind_target": 133,
+    "compare_status": "ahead"
+   },
+   "tobymao__sqlglot-2412": {
+    "tenant": "tenant-3",
+    "created_at": "2023-10-15 15:04:30+00:00",
+    "hours_before_target": 186.2,
+    "base_commit": "f2ce11ffa7bb6c4eec5e9ad1f8dfe78112e00d58",
+    "commits_behind_target": 39,
+    "compare_status": "ahead"
+   },
+   "tobymao__sqlglot-2439": {
+    "tenant": "tenant-2",
+    "created_at": "2023-10-22 13:26:39+00:00",
+    "hours_before_target": 19.9,
+    "base_commit": "9cbb6743545d6bd9bab7a98f5616f37b2913e4b6",
+    "commits_behind_target": 2,
+    "compare_status": "ahead"
+   },
+   "tobymao__sqlglot-767": {
+    "tenant": "tenant-2",
+    "created_at": "2022-11-25 15:03:40+00:00",
+    "hours_before_target": 7962.3,
+    "base_commit": "a9431175e5605270c123f30e737c61f18538bf8e",
+    "commits_behind_target": 1713,
+    "compare_status": "ahead"
+   },
+   "tobymao__sqlglot-790": {
+    "tenant": "tenant-2",
+    "created_at": "2022-12-03 19:16:07+00:00",
+    "hours_before_target": 7766.1,
+    "base_commit": "a5390860f05ffcfb5f13b9bff6cd1fe190caa428",
+    "commits_behind_target": 1689,
+    "compare_status": "ahead"
+   }
+  },
+  "own_fresh_tokens": 31785,
+  "pool_fresh_tokens": 36673,
+  "content_level_increment_tokens": 4888,
+  "own_fresh_share": 0.1792,
+  "pool_fresh_share": 0.2067,
+  "content_level_increment_share": 0.0276,
+  "not_checkable_tokens": 1883,
+  "note": "for each repeated path, the most recent earlier copy in own history vs in the pool; byte_identical = same blob/tree id at that copy's base commit and at the target base commit; the sandbox-root listing is outside the repo and not checkable",
+  "provenance": "actions.parquet keys + created_at ordering; GitHub contents API (scripts/staleness.py obj_id); commits_behind_target from the GitHub compare API"
+ },
+ "aggregate_context": {
+  "tasks": 1179,
+  "own_share_rank_of_all_tasks": 2,
+  "tasks_with_20plus_own": 308,
+  "tasks_with_20plus_own_and_zero_increment": 123,
+  "tasks_with_zero_increment": 376,
+  "sqlglot_tasks": 275,
+  "sqlglot_tasks_zero_increment": 107,
+  "sqlglot_median_own_share": 0.1904,
+  "sqlglot_median_increment_share": 0.0037,
+  "provenance": "per_task.parquet (all 1,179 rows; self_share, incr_tok, incr_share, own_hist, repo)"
+ }
+}
